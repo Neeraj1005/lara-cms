@@ -1,0 +1,55 @@
+{
+    "name": "neeraj1005/cms",
+    "description": "CMS pkg",
+    "keywords": [
+        "neeraj1005",
+        "cms"
+    ],
+    "homepage": "https://github.com/neeraj1005/cms",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Neeraj1005",
+            "email": "neeraj.tangariya123@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0",
+        "spatie/laravel-sluggable": "^2.6"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Neeraj1005\\Cms\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Neeraj1005\\Cms\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Neeraj1005\\Cms\\CmsServiceProvider"
+            ],
+            "aliases": {
+                "Cms": "Neeraj1005\\Cms\\CmsFacade"
+            }
+        }
+    }
+}
