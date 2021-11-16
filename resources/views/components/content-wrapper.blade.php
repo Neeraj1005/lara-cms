@@ -12,7 +12,7 @@
     <!-- Main content -->
     <section class="content mx-0">
         <div class="container-fluid">
-            <x-cms::auth-session-status class="mb-4" :status="session('status')" />
+            <x-cms::auth-session-status />
             {{ $slot }}
         </div>
     </section>

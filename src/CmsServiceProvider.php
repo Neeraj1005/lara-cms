@@ -17,11 +17,8 @@ class CmsServiceProvider extends ServiceProvider
          */
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'cms');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cms');
-
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
         $this->registerRoutes();
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/cms.php' => config_path('cms.php'),
@@ -33,9 +30,9 @@ class CmsServiceProvider extends ServiceProvider
             ], 'lara-cms-views');
 
             // Publishing assets.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/assets' => public_path('vendor/cms'),
-            ], 'lara-cms-assets');*/
+            ], 'lara-cms-assets');
 
             // Publishing the translation files.
             $this->publishes([

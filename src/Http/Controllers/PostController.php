@@ -5,6 +5,7 @@ namespace Neeraj1005\Cms\Http\Controllers;
 use Illuminate\Http\Request;
 use Neeraj1005\Cms\Models\Post;
 use App\Http\Controllers\Controller;
+use Neeraj1005\Cms\Http\Requests\PostFormRequest;
 
 class PostController extends Controller
 {
@@ -40,15 +41,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostFormRequest $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|max:255|string|min:4',
-        ]);
+        $validatedData = $request->validated();
 
-        $data = Post::create($validatedData);
+        try {
+            Post::create($validatedData);
 
-        return redirect(route('posts.index'))->with('status', 'post created successfully');
+            return redirect(route('posts.index'))->with('status', 'post created successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
