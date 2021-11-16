@@ -60,7 +60,6 @@ class Bootstrap extends Preset
     protected static function updateSass()
     {
         (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
-
         copy(__DIR__ . '/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
         copy(__DIR__ . '/bootstrap-stubs/cms_app.scss', resource_path('sass/cms_app.scss'));
     }
