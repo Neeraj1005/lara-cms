@@ -46,7 +46,6 @@ class InstallCommand extends Command
 
         $this->callSilent('migrate', [
             '--path' => 'vendor/neeraj1005/cms/database/migrations',
-            '--force' => $this->option('force') ?? true,
         ]);
 
         // (new Filesystem)->ensureDirectoryExists(resource_path('sass/cms'));
