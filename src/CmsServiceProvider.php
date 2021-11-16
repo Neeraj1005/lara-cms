@@ -25,22 +25,22 @@ class CmsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/cms.php' => config_path('cms.php'),
-            ], 'config');
+            ], 'lara-cms-config');
 
             // Publishing the views.
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/cms'),
-            ], 'views');
+            ], 'lara-cms-views');
 
             // Publishing assets.
             /*$this->publishes([
                 __DIR__.'/../resources/assets' => public_path('vendor/cms'),
-            ], 'assets');*/
+            ], 'lara-cms-assets');*/
 
             // Publishing the translation files.
             $this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/cms'),
-            ], 'lang');
+            ], 'lara-cms-lang');
 
             // Registering package commands.
             // $this->commands([]);
