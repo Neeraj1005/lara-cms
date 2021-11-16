@@ -15,7 +15,7 @@ class CmsServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'cms');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'cms');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cms');
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -24,7 +24,7 @@ class CmsServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('cms.php'),
+                __DIR__ . '/../config/cms.php' => config_path('cms.php'),
             ], 'config');
 
             // Publishing the views.
@@ -38,9 +38,9 @@ class CmsServiceProvider extends ServiceProvider
             ], 'assets');*/
 
             // Publishing the translation files.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/cms'),
-            ], 'lang');*/
+            ], 'lang');
 
             // Registering package commands.
             // $this->commands([]);
