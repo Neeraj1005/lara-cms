@@ -47,7 +47,7 @@ class Bootstrap extends Preset
         // copy(__DIR__ . '/bootstrap-stubs/webpack.mix.js', base_path('webpack.mix.js'));
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__ . '/bootstrap-stubs/webpack.mix.js')),
+            file_get_contents(__DIR__ . '/bootstrap-stubs/webpack.mix.js'),
             FILE_APPEND
         );
     }
