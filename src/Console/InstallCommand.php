@@ -3,7 +3,7 @@
 namespace Neeraj1005\Cms\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
+use Neeraj1005\Cms\Presets\Bootstrap;
 
 class InstallCommand extends Command
 {
@@ -48,117 +48,9 @@ class InstallCommand extends Command
             '--path' => 'vendor/neeraj1005/cms/database/migrations',
         ]);
 
-        // NPM Packages...
-        $this->updateNodePackages(function ($packages) {
-            return [
-                'bootstrap' => '^4.6.0',
-                'jquery' => '^3.6',
-                'popper.js' => '^1.16.1',
-                'sass' => '^1.32.11',
-                'sass-loader' => '^11.0.1',
-            ] + $packages;
-        });
-
-        $this->updateWebpackConfiguration();
-        $this->updateSass();
-        $this->updateBootstrapping();
+        Bootstrap::install();
 
         $this->info('Installation complete.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
-    }
-
-    /**
-     * Update the Sass files for the application.
-     *
-     * @return void
-     */
-    protected static function updateSass()
-    {
-        (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
-
-        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
-        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/cms_bootstrap.scss', resource_path('sass/cms_bootstrap.scss'));
-    }
-
-    /**
-     * Update the bootstrapping files.
-     *
-     * @return void
-     */
-    protected static function updateBootstrapping()
-    {
-        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
-    }
-
-    /**
-     * Update the "package.json" file.
-     *
-     * @param  callable  $callback
-     * @param  bool  $dev
-     * @return void
-     */
-    protected static function updateNodePackages(callable $callback, $dev = true)
-    {
-        if (!file_exists(base_path('package.json'))) {
-            return;
-        }
-
-        $configurationKey = $dev ? 'devDependencies' : 'dependencies';
-
-        $packages = json_decode(file_get_contents(base_path('package.json')), true);
-
-        $packages[$configurationKey] = $callback(
-            array_key_exists($configurationKey, $packages) ? $packages[$configurationKey] : [],
-            $configurationKey
-        );
-
-        ksort($packages[$configurationKey]);
-
-        file_put_contents(
-            base_path('package.json'),
-            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
-        );
-    }
-
-    /**
-     * Delete the "node_modules" directory and remove the associated lock files.
-     *
-     * @return void
-     */
-    protected function removeNodeModules()
-    {
-        tap(new Filesystem, function ($files) {
-            $files->deleteDirectory(base_path('node_modules'));
-
-            $files->delete(base_path('yarn.lock'));
-            $files->delete(base_path('package-lock.json'));
-        });
-    }
-
-    /**
-     * Update the Webpack configuration.
-     *
-     * @return void
-     */
-    protected function updateWebpackConfiguration()
-    {
-        file_put_contents(
-            base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__, 2) . '/resources/stubs/webpack.mix.stub'),
-            FILE_APPEND
-        );
-    }
-
-    /**
-     * Replace a given string within a given file.
-     *
-     * @param  string  $search
-     * @param  string  $replace
-     * @param  string  $path
-     * @return void
-     */
-    protected function replaceInFile($search, $replace, $path)
-    {
-        file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
 }
