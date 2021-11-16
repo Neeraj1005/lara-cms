@@ -4,6 +4,7 @@ namespace Neeraj1005\Cms;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Neeraj1005\Cms\Console\InstallCommand;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -40,8 +41,15 @@ class CmsServiceProvider extends ServiceProvider
             ], 'lara-cms-lang');
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->configureCommands();
         }
+    }
+
+    protected function configureCommands(): void
+    {
+        $this->commands([
+            InstallCommand::class,
+        ]);
     }
 
     protected function registerRoutes()
