@@ -48,9 +48,6 @@ class InstallCommand extends Command
             '--path' => 'vendor/neeraj1005/cms/database/migrations',
         ]);
 
-        // (new Filesystem)->ensureDirectoryExists(resource_path('sass/cms'));
-        // (new Filesystem)->ensureDirectoryExists(resource_path('js/cms'));
-
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
             return [
