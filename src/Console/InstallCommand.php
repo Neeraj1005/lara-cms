@@ -52,15 +52,15 @@ class InstallCommand extends Command
         // (new Filesystem)->ensureDirectoryExists(resource_path('js/cms'));
 
         // NPM Packages...
-        // $this->updateNodePackages(function ($packages) {
-        //     return [
-        //         'bootstrap' => '^4.6.0',
-        //         'jquery' => '^3.6.0',
-        //     ] + $packages;
-        // });
+        $this->updateNodePackages(function ($packages) {
+            return [
+                'bootstrap' => '^4.6.0',
+                'jquery' => '^3.6.0',
+            ] + $packages;
+        });
 
-        // $this->updateWebpackConfiguration();
-        // $this->flushNodeModules();
+        $this->updateWebpackConfiguration();
+        $this->flushNodeModules();
 
         $this->info('Installation complete.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
