@@ -76,8 +76,8 @@ class InstallCommand extends Command
     {
         (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
 
-        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
-        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/cms_bootstrap.scss', resource_path('sass/cms_bootstrap.scss'));
+        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
+        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/cms_bootstrap.scss', resource_path('sass/cms_bootstrap.scss'));
     }
 
     /**
@@ -87,7 +87,7 @@ class InstallCommand extends Command
      */
     protected static function updateBootstrapping()
     {
-        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
+        copy(dirname(__DIR__, 2) . '/resources/stubs/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
     }
 
     /**
