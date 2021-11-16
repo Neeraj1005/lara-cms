@@ -2,6 +2,7 @@
 
 namespace Neeraj1005\Cms;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -15,20 +16,20 @@ class CmsServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'cms');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'cms');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cms');
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        $this->registerRoutes();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('cms.php'),
+                __DIR__ . '/../config/config.php' => config_path('cms.php'),
             ], 'config');
 
             // Publishing the views.
             $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/cms'),
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/cms'),
             ], 'views');
 
             // Publishing assets.
@@ -46,13 +47,28 @@ class CmsServiceProvider extends ServiceProvider
         }
     }
 
+    protected function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        });
+    }
+
+    protected function routeConfiguration()
+    {
+        return [
+            'prefix' => config('cms.prefix'),
+            'middleware' => config('cms.middleware'),
+        ];
+    }
+
     /**
      * Register the application services.
      */
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'cms');
+        $this->mergeConfigFrom(__DIR__ . '/../config/cms.php', 'cms');
 
         // Register the main class to use with the facade
         $this->app->singleton('cms', function () {
