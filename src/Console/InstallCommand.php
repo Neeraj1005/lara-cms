@@ -52,15 +52,42 @@ class InstallCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                 'bootstrap' => '^4.6.0',
-                'jquery' => '^3.6.0',
+                'jquery' => '^3.6',
+                'popper.js' => '^1.16.1',
+                'sass' => '^1.32.11',
+                'sass-loader' => '^11.0.1',
             ] + $packages;
         });
 
         $this->updateWebpackConfiguration();
-        $this->flushNodeModules();
+        $this->updateSass();
+        $this->updateBootstrapping();
 
         $this->info('Installation complete.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
+    }
+
+    /**
+     * Update the Sass files for the application.
+     *
+     * @return void
+     */
+    protected static function updateSass()
+    {
+        (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
+
+        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
+        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/cms_bootstrap.scss', resource_path('sass/cms_bootstrap.scss'));
+    }
+
+    /**
+     * Update the bootstrapping files.
+     *
+     * @return void
+     */
+    protected static function updateBootstrapping()
+    {
+        copy(__DIR__ . '/resources/stubs/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
     }
 
     /**
@@ -98,7 +125,7 @@ class InstallCommand extends Command
      *
      * @return void
      */
-    protected function flushNodeModules()
+    protected function removeNodeModules()
     {
         tap(new Filesystem, function ($files) {
             $files->deleteDirectory(base_path('node_modules'));
