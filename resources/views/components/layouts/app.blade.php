@@ -14,10 +14,17 @@
     @include('cms::includes.style')
 </head>
 
-<body>
-    <main>
-        {{ $slot }}
-    </main>
+<body class="hold-transition sidebar-mini">
+    <div id="app" class="wrapper">
+
+        <x-cms::layouts.navbar />
+
+        <x-cms::layouts.aside />
+
+        <main>
+            {{ $slot }}
+        </main>
+    </div>
     @include('cms::includes.script')
 </body>
 

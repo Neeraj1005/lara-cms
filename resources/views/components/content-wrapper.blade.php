@@ -10,7 +10,7 @@
         </div>
     </section>
     <!-- Main content -->
-    <section class="content mx-0">
+    <section class="content">
         <div class="container-fluid">
             <x-cms::auth-session-status />
             {{ $slot }}

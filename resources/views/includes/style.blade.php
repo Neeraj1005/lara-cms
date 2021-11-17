@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('public/laracms/css/cms_fontawesome.css') }}" />
+
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('public/laracms/css/cms_app.css') }}" />
 
 <style>
     .ck-editor__editable {
@@ -9,7 +12,6 @@
 
 </style>
 
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('public/vendor/cms/css/cms.css') }}" />
+
 
 @stack('style')

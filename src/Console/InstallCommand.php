@@ -42,12 +42,15 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        // Publish config file
         $this->callSilent('vendor:publish', ['--tag' => 'lara-cms-config']);
 
+        // Run migrations
         $this->callSilent('migrate', [
             '--path' => 'vendor/neeraj1005/cms/database/migrations',
         ]);
 
+        // Install bootstrap assest css/js
         Bootstrap::install();
 
         $this->info('Installation complete.');

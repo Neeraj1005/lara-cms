@@ -20,15 +20,15 @@ class Post extends Model
     protected $fillable = [
         'title',
         'slug',
-        'user_id',
-        'category_id',
         'body',
+        'picture',
+        'user_id',
+        'cms_category_id',
         'published',
-        'subcategory_id',
-        'postcount',
-        'isactive',
-        'featured',
-        'commentActive',
+        'views',
+        'isActive',
+        'isFeatured',
+        'needComments',
     ];
 
     public function getSlugOptions() : SlugOptions

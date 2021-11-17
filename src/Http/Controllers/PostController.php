@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Neeraj1005\Cms\Models\Post;
 use App\Http\Controllers\Controller;
 use Neeraj1005\Cms\Http\Requests\PostFormRequest;
+use Neeraj1005\Cms\Models\CmsCategory;
 
 class PostController extends Controller
 {
@@ -32,7 +33,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('cms::posts.create');
+        return view('cms::posts.create', [
+            'categories' => CmsCategory::pluck('name', 'id'),
+        ]);
     }
 
     /**
@@ -46,11 +49,24 @@ class PostController extends Controller
         $validatedData = $request->validated();
 
         try {
-            Post::create($validatedData);
+            if ($request->hasFile('picture')) {
+                $file = $request->file('picture');
+
+                // $name = $file->getClientOriginalName();
+                // $extension = $request->file('picture')->extension();
+
+                // $filename = time(). '_'. $name . '.' . $extension;
+
+                $path_url = $file->storePublicly('cms', 'public');
+
+                $validatedData['picture'] = $path_url;
+            }
+
+            $this->postStore(request('postType'), $validatedData);
 
             return redirect(route('posts.index'))->with('status', 'post created successfully');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', 'Something went wrong ' . $th->getMessage());
         }
     }
 
@@ -76,7 +92,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('cms::posts.edit', compact('post'));
+        $categories = CmsCategory::pluck('name', 'id');
+
+        return view('cms::posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -86,17 +104,23 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostFormRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|max:255|string',
-        ]);
+        $validatedData = $request->validated();
 
-        $post = Post::findOrFail($id);
+        try {
+            if ($request->hasFile('picture')) {
+                $file = $request->file('picture');
+                $path_url = $file->storePublicly('cms', 'public');
+                $validatedData['picture'] = $path_url;
+            }
 
-        $post->update($validatedData);
+            $this->postUpdate(request('postType'), $validatedData, $id);
 
-        return redirect(route('posts.index'))->with('status', 'post updated successfully');
+            return redirect(route('posts.index'))->with('status', 'post updated successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong ' . $th->getMessage());
+        }
     }
 
     /**
@@ -112,5 +136,51 @@ class PostController extends Controller
         $post->delete();
 
         return redirect(route('posts.index'))->with('status', 'post deleted successfully');
+    }
+
+    protected function postStore(string $type = null, array $validatedData)
+    {
+        switch ($type) {
+            case 'draft':
+                $validatedData['published'] = false;
+                $validatedData['isActive'] = false;
+                break;
+
+            default:
+                $validatedData['published'] = true;
+                break;
+        }
+
+        if ($validatedData['category']) {
+            $validatedData['cms_category_id'] = $validatedData['category'];
+        }
+
+        $postData = Post::create($validatedData);
+
+        return $postData;
+    }
+
+    protected function postUpdate(string $type = null, array $validatedData, $id)
+    {
+        switch ($type) {
+            case 'draft':
+                $validatedData['published'] = false;
+                $validatedData['isActive'] = false;
+                break;
+
+            default:
+                $validatedData['published'] = true;
+                break;
+        }
+
+        if ($validatedData['category']) {
+            $validatedData['cms_category_id'] = $validatedData['category'];
+        }
+
+        $postData = Post::findOrFail($id);
+
+        $postData->update($validatedData);
+        
+        return $postData;
     }
 }

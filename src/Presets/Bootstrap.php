@@ -32,6 +32,8 @@ class Bootstrap extends Preset
             'bootstrap' => '^4.6.0',
             'jquery' => '^3.6',
             'popper.js' => '^1.16.1',
+            'admin-lte' => '^3.1',
+            '@fortawesome/fontawesome-free' => '^5.15.4',
             'sass' => '^1.32.11',
             'sass-loader' => '^11.0.1',
         ] + $packages;
@@ -47,7 +49,7 @@ class Bootstrap extends Preset
         // copy(__DIR__ . '/bootstrap-stubs/webpack.mix.js', base_path('webpack.mix.js'));
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(__DIR__ . '/bootstrap-stubs/webpack.mix.js'),
+            file_get_contents(__DIR__ . '/bootstrap-stubs/webpack.mix.stub'),
             FILE_APPEND
         );
     }
@@ -62,6 +64,7 @@ class Bootstrap extends Preset
         (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
         copy(__DIR__ . '/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
         copy(__DIR__ . '/bootstrap-stubs/cms_app.scss', resource_path('sass/cms_app.scss'));
+        copy(__DIR__ . '/bootstrap-stubs/cms_fontawesome.scss', resource_path('sass/cms_fontawesome.scss'));
     }
 
     /**
