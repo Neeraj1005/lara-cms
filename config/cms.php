@@ -78,4 +78,6 @@ return [
 
     'upload_filesize' => env('CMS_UPLOAD_FILESIZE', 3145728),
 
+    'asset_url' => null,
+
 ];

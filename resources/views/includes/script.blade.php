@@ -1,5 +1,7 @@
-
-<script type="text/javascript" src="{{ asset('public/laracms/js/cms_bootstrap.js') }}"></script>
+@php
+    $path = config('cms.asset_url') ? config('cms.asset_url').'/laracms/js/cms_bootstrap.js' : '/laracms/js/cms_bootstrap.js';
+@endphp
+<script type="text/javascript" src="{{ asset($path) }}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 
 <script>
