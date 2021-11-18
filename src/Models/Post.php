@@ -46,7 +46,11 @@ class Post extends Model
 
     public function profileImage()
     {
-        return $this->picture ? 'public/storage/' . $this->picture : null;
+        if (config('cms.asset_url')) {
+            return $this->picture ? 'public/storage/' . $this->picture : null;
+        }
+
+        return $this->picture ? 'storage/' . $this->picture : null;
     }
 
     public function stringLimit(string $val, int $len = 128)

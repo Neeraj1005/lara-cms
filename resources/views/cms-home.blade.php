@@ -5,7 +5,7 @@
                 @forelse($posts as $post)
                     <div class="post">
                         <h1 class="post-title fw-500">
-                            <a href="{{ route('posts.show', $post->slug) }}">
+                            <a href="{{ route('home.cms.show', $post->slug) }}">
                                 {{ $post->stringLimit($post->title) ?? '' }}
                             </a>
                         </h1>
