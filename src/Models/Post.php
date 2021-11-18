@@ -5,6 +5,7 @@ namespace Neeraj1005\Cms\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 
 class Post extends Model
@@ -31,7 +32,7 @@ class Post extends Model
         'needComments',
     ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
@@ -42,4 +43,20 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    public function profileImage()
+    {
+        return $this->picture ? 'public/storage/' . $this->picture : null;
+    }
+
+    public function stringLimit(string $val, int $len = 128)
+    {
+        return $val ? Str::limit($val, $len, '...') : null;
+    }
+
+    public function cms_category()
+    {
+        return $this->belongsTo(CmsCategory::class, 'cms_category_id');
+    }
+
 }

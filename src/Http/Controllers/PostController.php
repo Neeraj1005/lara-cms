@@ -22,7 +22,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->paginate(15)->withQueryString();
+        $posts = Post::latest()->paginate(config('cms.paginated_data'))->withQueryString();
         return view('cms::posts.index', compact('posts'));
     }
 

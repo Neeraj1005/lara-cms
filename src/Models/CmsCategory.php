@@ -28,4 +28,9 @@ class CmsCategory extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function cms_posts()
+    {
+        return $this->hasMany(Post::class, 'cms_category_id');
+    }
 }

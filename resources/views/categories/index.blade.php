@@ -3,43 +3,43 @@
 
         <x-slot name="header">
             <h1>
-                {{ __('Posts') }}
+                {{ __('Category') }}
             </h1>
         </x-slot>
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('posts.create') }}">{{ __('New Posts') }}</a>
+                <a href="{{ route('posts.categories.create') }}">{{ __('New Category') }}</a>
             </div>
             <div class="card-body">
                 <x-cms::table>
                     <x-slot name="tableHeading">
-                        <th>{{ __('Title') }}</th>
+                        <th>{{ __('Name') }}</th>
                         <th>{{ __('Action') }}</th>
                     </x-slot>
-                    @forelse($posts as $post)
+                    @forelse($categories as $category)
                         <tr>
                             <td>
                                 <a
-                                    href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                                    href="{{ route('posts.categories.show', $category->id) }}">{{ $category->name }}</a>
                             </td>
                             <td>
                                 <x-cms::table-action-btn>
                                     <small>
                                         <a class="dropdown-item text-default text-btn-space"
-                                            href="{{ route('posts.edit', $post->id) }}">
+                                            href="{{ route('posts.categories.edit', $category->id) }}">
                                             {{ __('Edit') }}
                                         </a>
                                         <a class="dropdown-item text-default text-btn-space" href="#" type="submit"
                                             role="button" onclick="event.preventDefault();
                                             if(confirm('Are you sure!')){
-                                                $('#form-delete-{{ $post->id }}').submit();
+                                                $('#form-delete-{{ $category->id }}').submit();
                                             }
                                         ">
                                             {{ __('Delete') }}
                                         </a>
-                                        <form style="display:none" id="form-delete-{{ $post->id }}"
-                                            action="{{ route('posts.destroy',$post->id) }}"
+                                        <form style="display:none" id="form-delete-{{ $category->id }}"
+                                            action="{{ route('posts.categories.destroy',$category->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('delete')
@@ -56,7 +56,7 @@
                 </x-cms::table>
             </div>
             <div class="card-footer">
-                {{ $posts->links() }}
+                {{ $categories->links() }}
             </div>
         </div>
     </x-cms::content-wrapper>
