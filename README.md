@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/neeraj1005/cms.svg?style=flat-square)](https://packagist.org/packages/neeraj1005/cms)
 [![Total Downloads](https://img.shields.io/packagist/dt/neeraj1005/cms.svg?style=flat-square)](https://packagist.org/packages/neeraj1005/cms)
-![GitHub Actions](https://github.com/neeraj1005/cms/actions/workflows/main.yml/badge.svg)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
@@ -13,11 +12,21 @@ You can install the package via composer:
 ```bash
 composer require neeraj1005/cms
 ```
+Publish the assets and primary configuration file using the `laracms:install` Artisan command:
 
+```bash
+php artisan laracms:install
+```
+
+Create a symbolic link to ensure file uploads are publicly accessible from the web using the `storage:link` Artisan command:
+
+```bash
+php artisan storage:link
+```
 ## Usage
 
 ```php
-// Usage description here
+
 ```
 
 ### Testing
