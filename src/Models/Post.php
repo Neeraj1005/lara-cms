@@ -63,4 +63,9 @@ class Post extends Model
         return $this->belongsTo(CmsCategory::class, 'cms_category_id');
     }
 
+    public function ScopeIsPublished($query)
+    {
+        return $query->where('published', true);
+    }
+
 }

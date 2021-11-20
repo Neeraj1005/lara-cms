@@ -9,20 +9,38 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('posts.create') }}">{{ __('New Posts') }}</a>
+                <a class="btn btn-primary" href="{{ route('posts.create') }}">{{ __('New Posts') }}</a>
             </div>
             <div class="card-body">
                 <x-cms::table>
                     <x-slot name="tableHeading">
                         <th>{{ __('Title') }}</th>
+                        <th>{{ __('Category') }}</th>
+                        <th>{{ __('Date') }}</th>
+                        <th>{{ __('Views') }}</th>
                         <th>{{ __('Action') }}</th>
                     </x-slot>
                     @forelse($posts as $post)
                         <tr>
                             <td>
-                                <a
-                                    href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                                @if($post->picture)
+                                    <img src="{{ asset($post->profileImage()) }}" width="5%" alt="{{ $post->slug }}">
+                                @endif
+                                <a href="{{ route('home.cms.show', $post->slug) }}"
+                                    target="_blank" rel="noopener">{{ $post->title }}</a>
                             </td>
+                            <td>
+                                {{ $post->cms_category->name ?? '' }}
+                            </td>
+
+                            <td>
+                                {{ $post->created_at->isoFormat('DD/M/YYYY') }}
+                            </td>
+
+                            <td>
+                                {{ $post->views ?? '' }}
+                            </td>
+
                             <td>
                                 <x-cms::table-action-btn>
                                     <small>

@@ -9,7 +9,7 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('posts.categories.create') }}">{{ __('New Category') }}</a>
+                <a class="btn btn-primary" href="{{ route('posts.categories.create') }}">{{ __('New Category') }}</a>
             </div>
             <div class="card-body">
                 <x-cms::table>
