@@ -3,8 +3,8 @@
 namespace Neeraj1005\Cms\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
+use Illuminate\Routing\Controller;
 use Neeraj1005\Cms\Models\CmsCategory;
 
 class CmsCategoryController extends Controller

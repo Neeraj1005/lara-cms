@@ -4,9 +4,9 @@ namespace Neeraj1005\Cms\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Neeraj1005\Cms\Models\Post;
-use App\Http\Controllers\Controller;
-use Neeraj1005\Cms\Http\Requests\PostFormRequest;
+use Illuminate\Routing\Controller;
 use Neeraj1005\Cms\Models\CmsCategory;
+use Neeraj1005\Cms\Http\Requests\PostFormRequest;
 
 class PostController extends Controller
 {

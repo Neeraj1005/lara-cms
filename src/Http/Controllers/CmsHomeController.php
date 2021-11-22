@@ -2,9 +2,9 @@
 
 namespace Neeraj1005\Cms\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Neeraj1005\Cms\Models\Post;
+use Illuminate\Routing\Controller;
 
 class CmsHomeController extends Controller
 {
