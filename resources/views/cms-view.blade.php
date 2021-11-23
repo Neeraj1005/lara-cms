@@ -1,4 +1,16 @@
 <x-cms::layouts.home-layout>
+    <x-slot name="title">
+        {{ $post->title ?? '' }}
+    </x-slot>
+    <x-slot name="description">
+        {{ $post->body }}
+    </x-slot>
+    <x-slot name="url">
+        {{ route('home.cms.show', $post->slug) }}
+    </x-slot>
+    <x-slot name="imageUrl">
+        {{ asset($post->profileImage()) }}
+    </x-slot>
     <div class="container">
         <div class="posts-container px-3 mx-auto my-5">
             <div class="post">

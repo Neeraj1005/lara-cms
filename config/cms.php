@@ -81,4 +81,12 @@ return [
     'asset_url' => null,
 
     'paginated_data' => 15,
+
+    /**
+     * For SEO Tag
+     */
+
+    'twitter_profile' => env('CMS_TWITTER_PROFILE_NAME', '@cms'),
+    'twitter_site' => env('CMS_TWITTER_SITE_NAME', '@cms.com'),
+    'description' => env('CMS_TWITTER_SITE_NAME', 'laracms package for adding post'),
 ];

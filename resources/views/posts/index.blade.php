@@ -9,7 +9,7 @@
 
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="{{ route('posts.create') }}">{{ __('New Posts') }}</a>
+                <a class="btn btn-primary float-right" href="{{ route('posts.create') }}">{{ __('New Post') }}</a>
             </div>
             <div class="card-body">
                 <x-cms::table>

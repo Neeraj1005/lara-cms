@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-md-10">
                         <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType" value="publish">
-                            {{ __('Published') }}</x-cms::button>
+                            {{ __('Publish') }}</x-cms::button>
                         <x-cms::button class="btn btn-sm btn-outline-secondary float-right mx-1" name="postType"
                             value="draft">{{ __('Draft') }}</x-cms::button>
                     </div>

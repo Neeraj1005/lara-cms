@@ -1,4 +1,13 @@
 <x-cms::layouts.home-layout>
+    <x-slot name="title">
+        {{ __('Blog Post') }}
+    </x-slot>
+    <x-slot name="description">
+        {{ __('List of blogs') }}
+    </x-slot>
+    <x-slot name="url">
+        {{ route('home.cms') }}
+    </x-slot>
     <div class="container">
         <div class="posts-container mx-auto px-3 my-5">
             <div class="posts">
