@@ -78,7 +78,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::isPublished()->findOrFail($id);
 
         return view('cms::posts.view', compact('post'));
     }

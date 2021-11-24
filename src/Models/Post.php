@@ -32,6 +32,15 @@ class Post extends Model
         'needComments',
     ];
 
+    const POST_PAGINATE = 10;
+
+    protected $appends = ['profile_img'];
+    
+    public function getProfileImgAttribute()
+    {
+        return $this->picture ? asset('public/storage/'.$this->picture) : null;
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -68,4 +77,13 @@ class Post extends Model
         return $query->where('published', true);
     }
 
+    public function getSummaryOfBodyAttribute()
+    {
+        if ($this->body) {
+            $body =  Str::limit(strip_tags($this->body), 156, '...');
+            return $body;
+        } else {
+            return null;
+        }
+    }
 }

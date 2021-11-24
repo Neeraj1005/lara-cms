@@ -42,6 +42,8 @@
     <main id="app">
         {{ $slot }}
     </main>
+
+    <x-cms::layouts.footer />
     @include('cms::includes.script')
 </body>
 

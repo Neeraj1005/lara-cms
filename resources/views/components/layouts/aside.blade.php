@@ -35,6 +35,13 @@
                                 <p>{{ __('Category') }}</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('report.index') }}"
+                                class="nav-link {{ Request::is('cms/reports*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
+                                <p>{{ __('Report') }}</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
         </nav>

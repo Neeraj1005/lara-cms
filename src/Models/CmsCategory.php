@@ -22,6 +22,8 @@ class CmsCategory extends Model
         'slug',
     ];
 
+    const CATEGORY_PAGINATE = 5;
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
@@ -32,5 +34,11 @@ class CmsCategory extends Model
     public function cms_posts()
     {
         return $this->hasMany(Post::class, 'cms_category_id');
+    }
+
+    public function cms_latest_posts()
+    {
+        // return $this->hasMany(Post::class, 'cms_category_id')->paginate(self::CATEGORY_PAGINATE);
+        return $this->hasMany(Post::class, 'cms_category_id')->latest()->take(self::CATEGORY_PAGINATE);
     }
 }

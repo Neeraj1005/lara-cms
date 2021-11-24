@@ -3,7 +3,7 @@
         {{ $post->title ?? '' }}
     </x-slot>
     <x-slot name="description">
-        {{ $post->body }}
+        {{ $post->body ? $post->summary_of_body : '' }}
     </x-slot>
     <x-slot name="url">
         {{ route('home.cms.show', $post->slug) }}
