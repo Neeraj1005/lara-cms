@@ -13,10 +13,12 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-10">
-                        <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType" value="publish">
+                        <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType"
+                            value="{{ Neeraj1005\Cms\Models\Post::TYPE_PUBLISHED }}">
                             {{ __('Publish') }}</x-cms::button>
                         <x-cms::button class="btn btn-sm btn-outline-secondary float-right mx-1" name="postType"
-                            value="draft">{{ __('Draft') }}</x-cms::button>
+                            value="{{ Neeraj1005\Cms\Models\Post::TYPE_DRAFT }}">
+                            {{ __('Draft') }}</x-cms::button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -42,11 +44,14 @@
                                 <select class="form-control" name="category" id="category">
                                     <option value="">{{ __('Select Category') }}</option>
                                     @foreach($categories as $id => $name)
-                                        <option value="{{ $id }}" {{ $post->cms_category_id == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                        <option value="{{ $id }}"
+                                            {{ $post->cms_category_id == $id ? 'selected' : '' }}>
+                                            {{ $name }}</option>
                                     @endforeach
                                 </select>
                                 <x-cms::auth-validation-errors :error="__('category')" />
                             </div>
+
                             <div class="form-group">
                                 <x-cms::label for="picture" :value="__('Featured Image')" />
                                 <x-cms::input type="file" name="picture" id="picture" aria-describedby="fileHelp" />
@@ -55,6 +60,16 @@
                                 </small>
                                 <x-cms::auth-validation-errors :error="__('picture')" />
                             </div>
+
+                            <div class="form-group">
+                                <x-cms::label for="tags" :value="__('Tags')" />
+                                <x-cms::input type="text" name="tags" id="tags" class="form-control"
+                                    value="{{ old('tags', $post->posts_tags()) }}" />
+                                <small id="tags" class="text-muted">
+                                    {{ __('Separate tags with commas') }}
+                                </small>
+                                <x-cms::auth-validation-errors :error="__('tags')" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,42 +77,42 @@
         </div>
     </x-cms::content-wrapper>
     @push('script')
-    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
-                    'blockQuote'
-                ],
-                heading: {
-                    options: [{
-                            model: 'paragraph',
-                            title: 'Paragraph',
-                            class: 'ck-heading_paragraph'
-                        },
-                        {
-                            model: 'heading1',
-                            view: 'h1',
-                            title: 'Heading 1',
-                            class: 'ck-heading_heading1'
-                        },
-                        {
-                            model: 'heading2',
-                            view: 'h2',
-                            title: 'Heading 2',
-                            class: 'ck-heading_heading2'
-                        }
-                    ]
-                }
-            })
-            .then(editor => {
-                // console.log(editor);
-            })
-            .catch(error => {
-                console.error('someting went wrong in your editor',error);
-            });
-    
-    </script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#description'), {
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                        'blockQuote'
+                    ],
+                    heading: {
+                        options: [{
+                                model: 'paragraph',
+                                title: 'Paragraph',
+                                class: 'ck-heading_paragraph'
+                            },
+                            {
+                                model: 'heading1',
+                                view: 'h1',
+                                title: 'Heading 1',
+                                class: 'ck-heading_heading1'
+                            },
+                            {
+                                model: 'heading2',
+                                view: 'h2',
+                                title: 'Heading 2',
+                                class: 'ck-heading_heading2'
+                            }
+                        ]
+                    }
+                })
+                .then(editor => {
+                    // console.log(editor);
+                })
+                .catch(error => {
+                    console.error('someting went wrong in your editor', error);
+                });
+
+        </script>
     @endpush
 </x-cms::layouts.app>

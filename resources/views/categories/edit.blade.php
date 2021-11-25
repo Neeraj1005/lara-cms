@@ -11,7 +11,7 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-10">
-                        <x-cms::button class="btn btn-sm btn-outline-primary float-right mx-1" name="postType"
+                        <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType"
                             value="save">{{ __('Save') }}</x-cms::button>
                     </div>
                 </div>

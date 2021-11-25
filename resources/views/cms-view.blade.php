@@ -16,11 +16,14 @@
             <div class="post">
                 <h1 class="post-title fw-500">{{ $post->title ?? '' }}</h1>
                 <div class="d-flex align-items-center mb-4 text-muted author-info">
-                    <a class="d-flex align-items-center text-muted text-decoration-none" href="#" target="_blank"
-                        rel="noopener">
-                        <span>{{ $post->cms_category->name ?? '' }}</span>
-                    </a>
-                    <span class="d-flex align-items-center ml-3" title="{{ $post->created_at ?? '' }}">
+                    @if($post->cms_category_count > 0)
+                        <a class="d-flex align-items-center text-muted text-decoration-none mr-3"
+                            href="{{ route('home.cms', ['category' => $post->cms_category->slug ?? '']) }}">
+                            <span>{{ $post->cms_category->name ?? '' }}</span>
+                        </a>
+                    @endif
+                    <span class="d-flex align-items-center"
+                        title="{{ $post->created_at ?? '' }}">
                         {{ $post->created_at->isoFormat('dddd DD, YYYY') }}
                     </span>
                 </div>
@@ -33,6 +36,20 @@
                     {!! $post->body !!}
                 </p>
             </div>
+            {{-- Start Tag list --}}
+            @if($post->cms_tags_count > 0)
+                <div class="tags">
+                    <p>
+                        <span class="font-weight-bold">Tags:</span>
+                        @forelse($post->cms_tags as $tag)
+                            <a
+                                href="{{ route('home.cms', ['tag' => $tag->slug]) }}">{{ $tag->name }}{{ ($loop->last) ? '' : ', ' }}</a>
+                        @empty
+                        @endforelse
+                    </p>
+                </div>
+            @endif
+            {{-- End Tag list --}}
         </div>
     </div>
 </x-cms::layouts.home-layout>

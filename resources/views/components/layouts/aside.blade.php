@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="{{ route('home.cms') }}" class="brand-link">
+    <a href="{{ route('posts.index') }}" class="brand-link">
         <img alt="{{ config('app.name') }}" height="60" width="60" class="img-circle"
             src="{{ 'https://ui-avatars.com/api/?background=random&name='.config('app.name') }}" />
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
@@ -12,6 +12,7 @@
                 <li class="nav-item 
                         {{ request()->is('cms/posts*') ? 'menu-open' : '' }}
                         {{ request()->is('cms/categories*') ? 'menu-open' : '' }}
+                        {{ request()->is('cms/reports*') ? 'menu-open' : '' }}
                         ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-phone"></i>

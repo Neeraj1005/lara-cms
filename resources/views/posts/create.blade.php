@@ -10,10 +10,12 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-10">
-                        <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType" value="publish">
+                        <x-cms::button class="btn btn-sm btn-primary float-right mx-1" name="postType"
+                            value="{{ Neeraj1005\Cms\Models\Post::TYPE_PUBLISHED }}">
                             {{ __('Publish') }}</x-cms::button>
                         <x-cms::button class="btn btn-sm btn-outline-secondary float-right mx-1" name="postType"
-                            value="draft">{{ __('Draft') }}</x-cms::button>
+                            value="{{ Neeraj1005\Cms\Models\Post::TYPE_DRAFT }}">
+                            {{ __('Draft') }}</x-cms::button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -51,6 +53,16 @@
                                     {{ __('Please upload a valid image file. Size of image should not be more than 2MB.') }}
                                 </small>
                                 <x-cms::auth-validation-errors :error="__('picture')" />
+                            </div>
+
+                            <div class="form-group">
+                                <x-cms::label for="tags" :value="__('Tags')" />
+                                <x-cms::input type="text" name="tags" id="tags" class="form-control"
+                                    value="{{ old('tags') }}" />
+                                <small id="tags" class="text-muted">
+                                    {{ __('Separate tags with commas') }}
+                                </small>
+                                <x-cms::auth-validation-errors :error="__('tags')" />
                             </div>
                         </div>
                     </div>
@@ -91,7 +103,7 @@
                     // console.log(editor);
                 })
                 .catch(error => {
-                    console.error('someting went wrong in your editor',error);
+                    console.error('someting went wrong in your editor', error);
                 });
 
         </script>

@@ -5,7 +5,23 @@
         </x-slot>
 
         <div class="card">
-            <canvas id="myChart" width="400" height="175"></canvas>
+            <div class="card-body">
+                <canvas id="myChart" width="400" height="175"></canvas>
+            </div>
+            <div class="card-footer table-responsive table-bordered">
+                <table class="table text-center">
+                    <thead class="h3">
+                        <th>Total Posts</th>
+                        <th>All-time views</th>
+                    </thead>
+                    <tbody>
+                        <tr class="h3">
+                            <td >{{ count($totalPosts) }}</td>
+                            <td>{{ $totalPosts->sum('views') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         @push('script')
@@ -29,13 +45,13 @@
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'Post - Last 30 Days post',
+                                label: 'Post - Last 30 Days',
                                 data: data,
                                 backgroundColor: [
-                                    'rgba(87, 31, 171, 1)'
+                                    'rgba(29, 136, 175, 1)'
                                 ],
                                 borderColor: [
-                                    'rgba(87, 31, 171, 0.2)'
+                                    'rgba(29, 136, 175, 0.2)'
                                 ],
                                 borderWidth: 1
                             }]
@@ -43,7 +59,7 @@
                         options: {
                             scales: {
                                 y: {
-                                    beginAtZero: true
+                                    beginAtZero: false
                                 },
                             }
                         }

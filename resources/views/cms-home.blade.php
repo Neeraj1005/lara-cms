@@ -19,11 +19,15 @@
                             </a>
                         </h1>
                         <div class="d-flex align-items-center mb-4 text-muted author-info">
-                            <a class="d-flex align-items-center text-muted text-decoration-none" href="#"
-                                target="_blank" rel="noopener">
-                                <span>{{ $post->cms_category->name ?? '' }}</span>
-                            </a>
-                            <span class="d-flex align-items-center ml-3" title="{{ $post->created_at ?? '' }}">
+                            
+                            @if($post->cms_category_count > 0)
+                                <span class="d-flex align-items-center text-muted text-decoration-none mr-3">
+                                    {{ $post->cms_category->name ?? '' }}
+                                </span>
+                            @endif
+
+                            <span class="d-flex align-items-center"
+                                title="{{ $post->created_at ?? '' }}">
                                 {{ $post->created_at->isoFormat('dddd DD, YYYY') ?? '' }}
                             </span>
                         </div>

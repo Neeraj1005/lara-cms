@@ -12,14 +12,33 @@ class CmsHomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::isPublished()->latest()->paginate(config('cms.paginated_data'));
+        $posts = Post::query()
+        ->when(request('category'), function($query) {
+            return $query->whereHas('cms_category', function($query){
+                $query->where('slug', request('category'));
+            });
+        })
+        ->when(request('tag'), function($query) {
+            return $query->whereHas('cms_tags', function($query){
+                $query->where('slug', request('tag'));
+            });
+        })
+        ->isPublished()
+        ->withCount('cms_category')
+        ->latest()->paginate(config('cms.paginated_data'));
 
         return view('cms::cms-home', compact('posts'));
     }
 
     public function show(Post $post)
     {
+        $post = $post->with('cms_category', 'cms_tags')
+            ->withCount('cms_tags','cms_category')
+            ->isPublished()
+            ->findOrFail($post->id);
+
         $post->increment('views');
+
         return view('cms::cms-view', compact('post'));
     }
 
@@ -38,7 +57,7 @@ class CmsHomeController extends Controller
 
     public function sitemap()
     {
-        $categoriesHasPost = CmsCategory::whereHas('cms_latest_posts', function($query){
+        $categoriesHasPost = CmsCategory::whereHas('cms_latest_posts', function ($query) {
             $query->isPublished();
         })->take(10)->get();
 

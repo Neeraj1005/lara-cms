@@ -12,6 +12,8 @@ class CmsReportController extends Controller
     public function index()
     {
         try {
+
+            $totalPosts = Post::isPublished()->get();
             for ($i = 0; $i <= 30; $i++) {
                 $date = date('Y-m-d', strtotime('today - ' . $i . ' days'));
                 $postData = DB::table('cms_posts')
@@ -23,7 +25,8 @@ class CmsReportController extends Controller
                 $labels[] = date('d M', strtotime($date));
                 $data[] = $postData->post;
             }
-            return view('cms::posts.reports', compact('data', 'labels'));
+
+            return view('cms::posts.reports', compact('data', 'labels', 'totalPosts'));
         } catch (\Throwable $th) {
             //
         }

@@ -4,7 +4,9 @@ namespace Neeraj1005\Cms\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Neeraj1005\Cms\Models\Post;
+use Neeraj1005\Cms\Models\CmsTag;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Neeraj1005\Cms\Models\CmsCategory;
 use Neeraj1005\Cms\Http\Requests\PostFormRequest;
 
@@ -20,9 +22,17 @@ class PostController extends Controller
         // $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(config('cms.paginated_data'))->withQueryString();
+        $type = $request->type;
+
+        $posts = Post::query()
+            ->when($type == Post::TYPE_DRAFT, function ($query) {
+                return $query->isDraft();
+            }, function ($query) {
+                return $query->isPublished();
+            })->latest()->paginate(config('cms.paginated_data'))->withQueryString();
+
         return view('cms::posts.index', compact('posts'));
     }
 
@@ -49,22 +59,27 @@ class PostController extends Controller
         $validatedData = $request->validated();
 
         try {
-            if ($request->hasFile('picture')) {
-                $file = $request->file('picture');
+            DB::transaction(function () use ($validatedData, $request) {
+                if ($request->hasFile('picture')) {
+                    $file = $request->file('picture');
 
-                // $name = $file->getClientOriginalName();
-                // $extension = $request->file('picture')->extension();
+                    $path_url = $file->storePublicly('cms', 'public');
 
-                // $filename = time(). '_'. $name . '.' . $extension;
+                    $validatedData['picture'] = $path_url;
+                }
 
-                $path_url = $file->storePublicly('cms', 'public');
+                $post = $this->postStore(request('postType'), $validatedData);
 
-                $validatedData['picture'] = $path_url;
-            }
+                if ($request->tags != '') {
+                    $tags = explode(',', $request->tags);
+                    foreach ($tags as $value) {
+                        $tag = CmsTag::firstOrCreate(['name' => $value]);
+                        $post->cms_tags()->attach($tag);
+                    }
+                }
+            });
 
-            $this->postStore(request('postType'), $validatedData);
-
-            return redirect(route('posts.index'))->with('status', 'post created successfully');
+            return redirect()->route('posts.index', ['type' => request('postType')])->with('status', 'post created successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Something went wrong ' . $th->getMessage());
         }
@@ -93,7 +108,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = CmsCategory::pluck('name', 'id');
-
+        $post->load('cms_tags');
         return view('cms::posts.edit', compact('post', 'categories'));
     }
 
@@ -109,15 +124,25 @@ class PostController extends Controller
         $validatedData = $request->validated();
 
         try {
-            if ($request->hasFile('picture')) {
-                $file = $request->file('picture');
-                $path_url = $file->storePublicly('cms', 'public');
-                $validatedData['picture'] = $path_url;
-            }
+            DB::transaction(function () use ($validatedData, $request, $id) {
+                if ($request->hasFile('picture')) {
+                    $file = $request->file('picture');
+                    $path_url = $file->storePublicly('cms', 'public');
+                    $validatedData['picture'] = $path_url;
+                }
 
-            $this->postUpdate(request('postType'), $validatedData, $id);
+                $post = $this->postUpdate(request('postType'), $validatedData, $id);
 
-            return redirect(route('posts.index'))->with('status', 'post updated successfully');
+                if ($request->tags != '') {
+                    $tags = explode(',', $request->tags);
+                    foreach ($tags as $value) {
+                        $tag = CmsTag::updateOrCreate(['name' => $value]);
+                        $tagIds[] = $tag->id;
+                    }
+                    $post->cms_tags()->sync($tagIds);
+                }
+            });
+            return redirect()->route('posts.index', ['type' => request('postType')])->with('status', 'post updated successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Something went wrong ' . $th->getMessage());
         }
@@ -180,7 +205,7 @@ class PostController extends Controller
         $postData = Post::findOrFail($id);
 
         $postData->update($validatedData);
-        
+
         return $postData;
     }
 }

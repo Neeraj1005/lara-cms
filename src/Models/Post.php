@@ -33,12 +33,14 @@ class Post extends Model
     ];
 
     const POST_PAGINATE = 10;
+    const TYPE_PUBLISHED = 'published';
+    const TYPE_DRAFT = 'draft';
 
     protected $appends = ['profile_img'];
-    
+
     public function getProfileImgAttribute()
     {
-        return $this->picture ? asset('public/storage/'.$this->picture) : null;
+        return $this->picture ? asset('public/storage/' . $this->picture) : null;
     }
 
     public function getSlugOptions(): SlugOptions
@@ -67,14 +69,14 @@ class Post extends Model
         return $val ? Str::limit($val, $len, '...') : null;
     }
 
-    public function cms_category()
-    {
-        return $this->belongsTo(CmsCategory::class, 'cms_category_id');
-    }
-
     public function ScopeIsPublished($query)
     {
         return $query->where('published', true);
+    }
+
+    public function ScopeIsDraft($query)
+    {
+        return $query->where('published', false);
     }
 
     public function getSummaryOfBodyAttribute()
@@ -86,4 +88,33 @@ class Post extends Model
             return null;
         }
     }
+
+
+    // relation function below
+    public function cms_category()
+    {
+        return $this->belongsTo(CmsCategory::class, 'cms_category_id');
+    }
+
+    public function cms_tags()
+    {
+        return $this->belongsToMany(CmsTag::class, 'cms_post_tag', 'cms_post_id', 'cms_tag_id');
+    }
+
+    public function posts_tags()
+    {
+        $tags = $this->cms_tags()->get()->map(function($tag) {
+            return $tag->name;
+        })->implode(',');
+
+        if ($tags == '') return '';
+
+        return $tags;
+    }
+
+    public function totalViews()
+    {
+        return $this->sum('views');
+    }
+
 }

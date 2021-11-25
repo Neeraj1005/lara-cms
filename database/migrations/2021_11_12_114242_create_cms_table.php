@@ -39,6 +39,22 @@ class CreateCmsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // tag table
+        Schema::create('cms_tags', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->timestamps();
+        });
+
+        // pivot table for tag
+        Schema::create('cms_post_tag', function (Blueprint $table) {
+            $table->foreignId('cms_tag_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('cms_post_id')->constrained()->cascadeOnDelete();
+            $table->unique(['cms_post_id', 'cms_tag_id']);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -48,7 +64,9 @@ class CreateCmsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('cms_post_tag');
         Schema::dropIfExists('cms_posts');
         Schema::dropIfExists('cms_categories');
+        Schema::dropIfExists('cms_tags');
     }
 }

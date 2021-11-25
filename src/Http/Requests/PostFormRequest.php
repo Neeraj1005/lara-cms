@@ -29,7 +29,8 @@ class PostFormRequest extends FormRequest
             'body' => ['required', 'string'],
             'category' => ['nullable', 'exists:cms_categories,id'],
             'picture' => ['nullable', 'image'],
-            'postType' => ['required', Rule::in(['draft','publish'])],
+            'postType' => ['required', Rule::in(['draft','published'])],
+            'tags' => ['nullable', 'string'],
         ];
     }
 }
