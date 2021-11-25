@@ -36,6 +36,7 @@ class Bootstrap extends Preset
             '@fortawesome/fontawesome-free' => '^5.15.4',
             'sass' => '^1.32.11',
             'sass-loader' => '^11.0.1',
+            'chart.js' => '^3.6.0',
         ] + $packages;
     }
 
