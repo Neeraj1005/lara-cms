@@ -1,6 +1,6 @@
 <?php
 
-namespace Neeraj1005\Cms\Tests;
+namespace Neeraj1005\Cms\Tests\Feature;
 
 use Neeraj1005\Cms\Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
