@@ -23,7 +23,7 @@
                                         <h3>{{ __('Post') }}</h3>
                                     </div>
                                     <div class="col">
-                                        <a href="{{ route('home.rss') }}" class="badge badge-primary">{{ __('RSS') }}</a>
+                                        <a href="{{ route('home.rss', ['q' => 'latest-post']) }}" class="badge badge-primary">{{ __('RSS') }}</a>
                                     </div>
                                 </div>
                             </legend>
