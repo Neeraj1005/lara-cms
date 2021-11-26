@@ -91,6 +91,12 @@ class Post extends Model
 
 
     // relation function below
+
+    public function user()
+    {
+        return $this->belongsTo(config('auth.providers.users.model'));
+    }
+
     public function cms_category()
     {
         return $this->belongsTo(CmsCategory::class, 'cms_category_id');
@@ -103,7 +109,7 @@ class Post extends Model
 
     public function posts_tags()
     {
-        $tags = $this->cms_tags()->get()->map(function($tag) {
+        $tags = $this->cms_tags()->get()->map(function ($tag) {
             return $tag->name;
         })->implode(',');
 
@@ -112,9 +118,8 @@ class Post extends Model
         return $tags;
     }
 
-    public function totalViews()
+    public function ScopeAuthUser($query)
     {
-        return $this->sum('views');
+        return $query->where('user_id', auth()->id());
     }
-
 }

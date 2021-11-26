@@ -13,12 +13,14 @@ class CmsReportController extends Controller
     {
         try {
 
-            $totalPosts = Post::isPublished()->get();
+            $totalPosts = Post::authUser()->isPublished()->get();
+            
             for ($i = 0; $i <= 30; $i++) {
                 $date = date('Y-m-d', strtotime('today - ' . $i . ' days'));
                 $postData = DB::table('cms_posts')
                     ->select(DB::raw('count(id) as post'))
                     ->where('published', 1)
+                    ->where('user_id', auth()->id())
                     ->where(DB::raw('DATE(created_at)'), $date)
                     ->first();
     

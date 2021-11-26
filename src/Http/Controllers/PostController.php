@@ -27,6 +27,7 @@ class PostController extends Controller
         $type = $request->type;
 
         $posts = Post::query()
+            ->authUser()
             ->when($type == Post::TYPE_DRAFT, function ($query) {
                 return $query->isDraft();
             }, function ($query) {
@@ -56,7 +57,7 @@ class PostController extends Controller
      */
     public function store(PostFormRequest $request)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->validated() + ['user_id' => auth()->id()];
 
         try {
             DB::transaction(function () use ($validatedData, $request) {
@@ -93,7 +94,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::isPublished()->findOrFail($id);
+        $post = Post::authUser()->isPublished()->findOrFail($id);
 
         return view('cms::posts.view', compact('post'));
     }
@@ -106,7 +107,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::authUser()->findOrFail($id);
         $categories = CmsCategory::pluck('name', 'id');
         $post->load('cms_tags');
         return view('cms::posts.edit', compact('post', 'categories'));
@@ -121,7 +122,7 @@ class PostController extends Controller
      */
     public function update(PostFormRequest $request, $id)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->validated() + ['user_id' => auth()->id()];
 
         try {
             DB::transaction(function () use ($validatedData, $request, $id) {
@@ -156,7 +157,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::authUser()->findOrFail($id);
 
         $post->delete();
 

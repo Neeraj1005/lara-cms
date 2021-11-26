@@ -18,7 +18,7 @@ class CmsPostApiController extends Controller
         $posts = Post::query();
 
         if ($request->limit) {
-            $posts = Post::with('cms_category:id,name,slug')->isPublished()->latest()->take($request->limit)->get();
+            $posts = Post::with('cms_category:id,name,slug', 'user:id,name')->isPublished()->latest()->take($request->limit)->get();
         } else {
             $posts = Post::with('cms_category:id,name,slug')->isPublished()->latest()->paginate(Post::POST_PAGINATE);
         }
@@ -30,7 +30,7 @@ class CmsPostApiController extends Controller
 
     public function show(Post $post)
     {
-        $posts = $post->with('cms_category:id,name,slug')->isPublished()->findOrFail($post->id);
+        $posts = $post->with('cms_category:id,name,slug', 'user:id,name')->isPublished()->findOrFail($post->id);
 
         return response()->json([
             'posts' => $posts,

@@ -13,6 +13,7 @@ class CmsHomeController extends Controller
     public function index()
     {
         $posts = Post::query()
+        ->with('user:id,name')
         ->when(request('category'), function($query) {
             return $query->whereHas('cms_category', function($query){
                 $query->where('slug', request('category'));
@@ -32,7 +33,7 @@ class CmsHomeController extends Controller
 
     public function show(Post $post)
     {
-        $post = $post->with('cms_category', 'cms_tags')
+        $post = $post->with('cms_category', 'cms_tags', 'user:id,name')
             ->withCount('cms_tags','cms_category')
             ->isPublished()
             ->findOrFail($post->id);

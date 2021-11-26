@@ -19,7 +19,13 @@
                             </a>
                         </h1>
                         <div class="d-flex align-items-center mb-4 text-muted author-info">
-                            
+
+                            @if($post->user)
+                                <span class="d-flex align-items-center text-muted text-decoration-none mr-2">
+                                    <span>{{ $post->user ? '@'.$post->user->name : '' }}</span>
+                                </span>
+                            @endif
+
                             @if($post->cms_category_count > 0)
                                 <span class="d-flex align-items-center text-muted text-decoration-none mr-3">
                                     {{ $post->cms_category->name ?? '' }}
