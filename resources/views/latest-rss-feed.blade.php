@@ -16,7 +16,7 @@
             {{ __('en-US') }}
         </language>
 
-        <lastBuildDate>{{ $latestPosts->first()->updated_at->toRssString() }}</lastBuildDate>
+        <lastBuildDate>{{ $latestPosts ?? $latestPosts->first()->updated_at->toRssString() }}</lastBuildDate>
 
         @foreach($latestPosts as $post)
             <item>
