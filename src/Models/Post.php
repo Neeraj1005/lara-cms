@@ -35,6 +35,7 @@ class Post extends Model
     const POST_PAGINATE = 10;
     const TYPE_PUBLISHED = 'published';
     const TYPE_DRAFT = 'draft';
+    const TYPE_TRASH = 'trashed';
 
     protected $appends = ['profile_img'];
 
@@ -77,6 +78,11 @@ class Post extends Model
     public function ScopeIsDraft($query)
     {
         return $query->where('published', false);
+    }
+
+    public function ScopeIsTrashed()
+    {
+        return $this->onlyTrashed();
     }
 
     public function getSummaryOfBodyAttribute()

@@ -24,7 +24,8 @@
 
                     @if($post->cms_category_count > 0)
                         <a class="d-flex align-items-center text-muted text-decoration-none mr-3"
-                            href="{{ route('home.cms', ['category' => $post->cms_category->slug ?? '']) }}">
+                            href="{{ route('home.cms', ['category' => $post->cms_category->slug ?? '']) }}"
+                            target="_blank" rel="noopener noreferrer">
                             <span>{{ $post->cms_category->name ?? '' }}</span>
                         </a>
                     @endif
@@ -48,8 +49,9 @@
                     <p>
                         <span class="font-weight-bold">Tags:</span>
                         @forelse($post->cms_tags as $tag)
-                            <a
-                                href="{{ route('home.cms', ['tag' => $tag->slug]) }}">{{ $tag->name }}{{ ($loop->last) ? '' : ', ' }}</a>
+                            <a href="{{ route('home.cms', ['tag' => $tag->slug]) }}"
+                                target="_blank"
+                                rel="noopener noreferrer">{{ $tag->name }}{{ ($loop->last) ? '' : ', ' }}</a>
                         @empty
                         @endforelse
                     </p>

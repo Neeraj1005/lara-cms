@@ -15,13 +15,21 @@
                 <x-cms::table>
                     <x-slot name="tableHeading">
                         <th>{{ __('Name') }}</th>
+                        <th>{{ __('Posts') }}</th>
                         <th>{{ __('Action') }}</th>
                     </x-slot>
                     @forelse($categories as $category)
                         <tr>
                             <td>
                                 <a
-                                    href="{{ route('posts.categories.show', $category->id) }}">{{ $category->name }}</a>
+                                    href="{{ route('home.cms', ['category' => $category->slug]) }}"
+                                    target="_new"
+                                    rel="noopener noreferrer">
+                                    {{ $category->name }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ $category->cms_posts_count ?? '' }}
                             </td>
                             <td>
                                 <x-cms::table-action-btn>

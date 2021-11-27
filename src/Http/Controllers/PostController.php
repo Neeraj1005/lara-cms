@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Neeraj1005\Cms\Models\CmsCategory;
 use Neeraj1005\Cms\Http\Requests\PostFormRequest;
 
+use function PHPUnit\Framework\isNull;
+
 class PostController extends Controller
 {
     /**
@@ -27,12 +29,20 @@ class PostController extends Controller
         $type = $request->type;
 
         $posts = Post::query()
-            ->authUser()
+            ->when($type == Post::TYPE_TRASH, function ($query) {
+                return $query->isTrashed();
+            })
             ->when($type == Post::TYPE_DRAFT, function ($query) {
                 return $query->isDraft();
-            }, function ($query) {
+            })
+            ->when($type == Post::TYPE_PUBLISHED, function ($query) {
                 return $query->isPublished();
-            })->latest()->paginate(config('cms.paginated_data'))->withQueryString();
+            })
+            ->when($type == null, function ($query) {
+                return $query->isPublished();
+            })
+            ->authUser()
+            ->latest()->paginate(config('cms.paginated_data'))->withQueryString();
 
         return view('cms::posts.index', compact('posts'));
     }

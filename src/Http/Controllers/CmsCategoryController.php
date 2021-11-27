@@ -16,7 +16,7 @@ class CmsCategoryController extends Controller
      */
     public function index()
     {
-        $categories = CmsCategory::latest()->paginate(config('cms.paginated_data'))->withQueryString();
+        $categories = CmsCategory::withCount('cms_posts')->latest()->paginate(config('cms.paginated_data'))->withQueryString();
 
         return view('cms::categories.index', compact('categories'));
     }

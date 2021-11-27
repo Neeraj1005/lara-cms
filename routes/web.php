@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reports', [CmsReportController::class, 'index'])->name('report.index');
 
     Route::name('posts.')->group(function () {
-        Route::resource('categories', CmsCategoryController::class);
+        Route::resource('categories', CmsCategoryController::class)->except(['show']);
     });
 });
 

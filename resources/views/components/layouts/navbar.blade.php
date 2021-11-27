@@ -9,7 +9,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('home.cms') }}"
-                class="nav-link">{{ __('Visit Site') }}</a>
+                class="nav-link" target="_blank" rel="noopener noreferrer">{{ __('Visit Site') }}</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

@@ -19,6 +19,10 @@
                             class="btn {{ request('type') == Neeraj1005\Cms\Models\Post::TYPE_DRAFT ? 'btn-secondary' : 'btn-outline-secondary' }}">
                             {{ __('Draft') }}
                         </a>
+                        <a href="{{ route('posts.index', ['type' => Neeraj1005\Cms\Models\Post::TYPE_TRASH]) }}"
+                            class="btn {{ request('type') == Neeraj1005\Cms\Models\Post::TYPE_TRASH ? 'btn-secondary' : 'btn-outline-secondary' }}">
+                            {{ __('Trash') }}
+                        </a>
 
                         <div class="card-tools">
                             <a class="btn btn-primary float-right"
