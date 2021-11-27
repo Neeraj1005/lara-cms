@@ -10,9 +10,8 @@
         <nav class="mt-3 pb-3 mb-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item 
-                        {{ request()->is('cms/posts*') ? 'menu-open' : '' }}
-                        {{ request()->is('cms/categories*') ? 'menu-open' : '' }}
-                        {{ request()->is('cms/reports*') ? 'menu-open' : '' }}
+                        {{ request()->routeIs('posts.*') ? 'menu-open' : '' }}
+                        {{ request()->routeIs('report.*') ? 'menu-open' : '' }}
                         ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-phone"></i>
@@ -24,21 +23,21 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('posts.index') }}"
-                                class="nav-link {{ Request::is('cms/posts*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('posts.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
                                 <p>{{ __('Posts') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('posts.categories.index') }}"
-                                class="nav-link {{ Request::is('cms/categories*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('posts.categories*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
                                 <p>{{ __('Category') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('report.index') }}"
-                                class="nav-link {{ Request::is('cms/reports*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('report.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
                                 <p>{{ __('Report') }}</p>
                             </a>
