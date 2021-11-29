@@ -227,7 +227,6 @@ class PostController extends Controller
         $post->exists = true;
         $image = $post->addMediaFromRequest('upload')->toMediaCollection('postckimages');
 
-        dd($image->getUrl('thumb'));
         return response()->json([
             'url' => $image->getUrl(),
         ]);
