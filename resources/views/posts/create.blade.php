@@ -71,24 +71,8 @@
         </div>
     </x-cms::content-wrapper>
     @push('script')
-
         <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-
-        {{-- @if(config('cms.asset_url'))
-            <script src="{{ asset('public/laracms/js/ckeditor5.js') }}">
-        </script>
-        <script type="text/javascript" src="{{ asset('public/js/ckfinder/ckfinder.js') }}">
-        </script>
-    @else
-        <script src="{{ asset('/laracms/js/ckeditor5.js') }}">
-        </script>
-        <script type="text/javascript" src="{{ asset('/js/ckfinder/ckfinder.js') }}">
-        </script>
-    @endif--}}
     <script>
-        // CKFinder.config({
-        //     connectorPath: '/ckfinder/connector'
-        // });
         class MyUploadAdapter {
             constructor(loader) {
                 // The file loader instance to use during the upload. It sounds scary but do not
