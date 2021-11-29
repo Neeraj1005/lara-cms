@@ -37,6 +37,7 @@ class Bootstrap extends Preset
             'sass' => '^1.32.11',
             'sass-loader' => '^11.0.1',
             'chart.js' => '^3.6.0',
+            '@ckeditor/ckeditor5-build-classic' => '^31.0.0',
         ] + $packages;
     }
 
@@ -76,5 +77,6 @@ class Bootstrap extends Preset
     protected static function updateBootstrapping()
     {
         copy(__DIR__ . '/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
+        copy(__DIR__ . '/bootstrap-stubs/ckeditor5.js', resource_path('js/ckeditor5.js'));
     }
 }

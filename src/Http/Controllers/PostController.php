@@ -219,4 +219,17 @@ class PostController extends Controller
 
         return $postData;
     }
+
+    public function imageUpload(Request $request)
+    {
+        $post = new Post();
+        $post->id = 0;
+        $post->exists = true;
+        $image = $post->addMediaFromRequest('upload')->toMediaCollection('postckimages');
+
+        dd($image->getUrl('thumb'));
+        return response()->json([
+            'url' => $image->getUrl(),
+        ]);
+    }
 }

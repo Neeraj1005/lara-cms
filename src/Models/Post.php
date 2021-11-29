@@ -4,13 +4,16 @@ namespace Neeraj1005\Cms\Models;
 
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, InteractsWithMedia;
 
     //Table Name
     protected $table = 'cms_posts';
@@ -38,6 +41,12 @@ class Post extends Model
     const TYPE_TRASH = 'trashed';
 
     protected $appends = ['profile_img'];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(600);
+    }
 
     public function getProfileImgAttribute()
     {

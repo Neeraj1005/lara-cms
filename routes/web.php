@@ -27,5 +27,5 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('categories', CmsCategoryController::class)->except(['show']);
     });
 });
-
+Route::post('imageupload', [PostController::class, 'imageUpload'])->name('cms.imageupload');
 Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');
