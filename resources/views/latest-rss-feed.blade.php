@@ -3,7 +3,7 @@
         <atom:link type="application/rss+xml" rel="self"
             href="{{ route('home.rss', ['q' => 'latest-post']) }}" />
         <title>
-            {{ __('Latest Post') }}>
+            {{ __('Latest Post') }}
         </title>
         <link>{{ config('app.url') }}</link>
         <description>
