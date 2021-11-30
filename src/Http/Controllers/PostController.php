@@ -228,7 +228,7 @@ class PostController extends Controller
         $image = $post->addMediaFromRequest('upload')->toMediaCollection('postckimages');
 
         return response()->json([
-            'url' => $image->getUrl(),
+            'url' => $image->getUrl('ckthumb'),
         ]);
     }
 }
