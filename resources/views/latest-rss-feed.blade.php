@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
         <atom:link type="application/rss+xml" rel="self"
-            href="{{ route('home.rss') }}" />
+            href="{{ route('home.rss', ['q' => 'latest-post']) }}" />
         <title>
             {{ __('Latest Post') }}>
         </title>
