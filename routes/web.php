@@ -5,6 +5,8 @@ use Neeraj1005\Cms\Http\Controllers\Api\CmsPostApiController;
 use Neeraj1005\Cms\Http\Controllers\CmsCategoryController;
 use Neeraj1005\Cms\Http\Controllers\CmsHomeController;
 use Neeraj1005\Cms\Http\Controllers\CmsReportController;
+use Neeraj1005\Cms\Http\Controllers\CmsSeoController;
+use Neeraj1005\Cms\Http\Controllers\CmsSettingController;
 use Neeraj1005\Cms\Http\Controllers\PostController;
 
 
@@ -21,11 +23,16 @@ Route::get('/sitemap', [CmsHomeController::class, 'sitemap'])->name('sitemap');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
-    Route::get('reports', [CmsReportController::class, 'index'])->name('report.index');
-
     Route::name('posts.')->group(function () {
         Route::resource('categories', CmsCategoryController::class)->except(['show']);
     });
+    Route::get('reports', [CmsReportController::class, 'index'])->name('report.index');
+
+    Route::name('cms.')->group(function () {
+        Route::post('imageupload', [PostController::class, 'imageUpload'])->name('imageupload');
+        Route::get('settings', CmsSettingController::class)->name('settings');
+        Route::post('seo-cms', [CmsSeoController::class, 'seoStore'])->name('seo');
+    });
 });
-Route::post('imageupload', [PostController::class, 'imageUpload'])->name('cms.imageupload');
+
 Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');

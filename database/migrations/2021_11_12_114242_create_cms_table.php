@@ -76,6 +76,14 @@ class CreateCmsTable extends Migration
 
             $table->nullableTimestamps();
         });
+
+        Schema::create('cms_seos', function (Blueprint $table) {
+            $table->id();
+            $table->string('site_title')->nullable();
+            $table->longText('site_description')->nullable();
+            $table->string('logo')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -90,5 +98,6 @@ class CreateCmsTable extends Migration
         Schema::dropIfExists('cms_categories');
         Schema::dropIfExists('cms_tags');
         Schema::dropIfExists('media');
+        Schema::dropIfExists('cms_seos');
     }
 }

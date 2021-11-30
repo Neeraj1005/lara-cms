@@ -44,6 +44,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('cms.settings') }}"
+                        class="nav-link {{ request()->routeIs('cms.settings*') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
+                        <p>{{ __('Settings') }}</p>
+                    </a>
+                </li>
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
