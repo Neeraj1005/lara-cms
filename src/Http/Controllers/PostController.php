@@ -230,8 +230,7 @@ class PostController extends Controller
             ->toMediaCollection('postckimages');
 
         return response()->json([
-            // 'url' => $image->getUrl('ckthumb'),
-            'url' => $image->getFirstMedia(),
+            'url' => $image->getUrl('ckthumb'),
         ]);
     }
 }
