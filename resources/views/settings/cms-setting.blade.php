@@ -19,7 +19,13 @@
                                     <a class="list-group-item list-group-item-action active" id="v-pills-home-seo"
                                         data-toggle="pill" href="#v-pills-seo" role="tab" aria-controls="v-pills-seo"
                                         aria-selected="true"><i class="fas fa-image"></i>
-                                        SEO
+                                        {{ __('SEO') }}
+                                    </a>
+
+                                    <a class="list-group-item list-group-item-action" id="v-pills-home-logo"
+                                        data-toggle="pill" href="#v-pills-logo" role="tab" aria-controls="v-pills-logo"
+                                        aria-selected="true"><i class="fas fa-image"></i>
+                                        {{ __('Logo') }}
                                     </a>
                                 </div>
                             </div>
@@ -29,9 +35,15 @@
                     {{-- Right side div --}}
                     <div class="col-9 pb-5">
                         <div class="tab-content" id="v-pills-tabContent">
+
                             <div class="tab-pane fade show active" id="v-pills-seo" role="tabpanel"
                                 aria-labelledby="v-pills-home-seo">
-                                <x-cms::settings.seo-settings :data="$seo" />
+                                <x-cms::settings.seo-settings :data="$seo" :logo="false" />
+                            </div>
+
+                            <div class="tab-pane fade" id="v-pills-logo" role="tabpanel"
+                                aria-labelledby="v-pills-home-logo">
+                                <x-cms::settings.seo-settings :data="$seo" :logo="true" />
                             </div>
                         </div>
                     </div>

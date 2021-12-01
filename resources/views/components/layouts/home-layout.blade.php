@@ -43,6 +43,9 @@
 </head>
 
 <body class="hold-transition">
+    
+    <x-cms::layouts.home-header />
+    
     <main id="app">
         {{ $slot }}
     </main>

@@ -11,7 +11,7 @@ class CmsSeoController extends Controller
     public function seoStore(Request $request)
     {
         $validatedData = $request->validate([
-            'site_title' => ['required', 'string', 'max:150'],
+            'site_title' => ['nullable', 'string', 'max:150'],
             'site_description' => ['nullable', 'string', 'max:255'],
             'picture' => ['nullable', 'image', 'max:1024'],
         ]);
@@ -21,7 +21,7 @@ class CmsSeoController extends Controller
                 $path_url = $file->storePublicly('cms/logo', 'public');
                 $validatedData['logo'] = $path_url;
             }
-            
+
             CmsSeo::updateOrCreate(['id' => CmsSeo::ROW_ID], $validatedData);
 
             return redirect()->route('cms.settings')->with('message', 'data added successfully');

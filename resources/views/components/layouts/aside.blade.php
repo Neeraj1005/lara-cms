@@ -51,6 +51,13 @@
                         <p>{{ __('Settings') }}</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('cms.menus.index') }}"
+                        class="nav-link {{ request()->routeIs('cms.menus*') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
+                        <p>{{ __('Menu') }}</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

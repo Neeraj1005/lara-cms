@@ -84,6 +84,18 @@ class CreateCmsTable extends Migration
             $table->string('logo')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('cms_menus', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->boolean('placed_in')->default(true)->comment('1 for header 0 footer');
+            $table->unsignedInteger('order_column')->nullable();
+            $table->boolean('is_active')->default(true)->comment('for active inactive menu');
+            $table->string('url')->nullable();
+            $table->boolean('is_checked')->default(false)->comment('is used for target blank');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -99,5 +111,6 @@ class CreateCmsTable extends Migration
         Schema::dropIfExists('cms_tags');
         Schema::dropIfExists('media');
         Schema::dropIfExists('cms_seos');
+        Schema::dropIfExists('cms_menus');
     }
 }

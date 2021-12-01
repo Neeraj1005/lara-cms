@@ -225,10 +225,13 @@ class PostController extends Controller
         $post = new Post();
         $post->id = 0;
         $post->exists = true;
-        $image = $post->addMediaFromRequest('upload')->toMediaCollection('postckimages');
+        $image = $post->addMediaFromRequest('upload')
+            ->withResponsiveImages()
+            ->toMediaCollection('postckimages');
 
         return response()->json([
-            'url' => $image->getUrl('ckthumb'),
+            // 'url' => $image->getUrl('ckthumb'),
+            'url' => $image->getFirstMedia(),
         ]);
     }
 }

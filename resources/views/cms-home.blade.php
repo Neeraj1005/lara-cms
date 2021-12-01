@@ -30,7 +30,7 @@
                         </div>
                         @if($post->picture)
                             <div class="embed-responsive">
-                                <img src="{{ asset($post->profileImage()) }}" />
+                                <img src="{{ asset($post->profileImage()) }}" class="img-fluid" />
                             </div>
                         @endif
                         <p>
