@@ -17,17 +17,24 @@
                             <div class="form-group">
                                 <x-cms::label for="name" :value="__('Name')" />
                                 <x-cms::input type="text" name="name" id="name"
-                                    value="{{ old('name', optional($menu)->name) }}" />
+                                    value="{{ old('name', optional($menu)->name) }}" required />
                                 <x-cms::auth-validation-errors :error="__('name')" />
                             </div>
 
                             <div class="form-group">
                                 <x-cms::label for="url" :value="__('Url')" />
-                                <x-cms::input type="text" name="url" id="url"
-                                    value="{{ old('url', optional($menu)->url) }}" />
+                                <x-cms::input type="url" name="url" id="url"
+                                    value="{{ old('url', optional($menu)->url) }}" required />
                                 <small
                                     class="text-muted">{{ __('for example https://laravel.com') }}</small>
                                 <x-cms::auth-validation-errors :error="__('url')" />
+                            </div>
+
+                            <div class="form-group">
+                                <x-cms::label for="menu_order" :value="__('Menu Order')" />
+                                <x-cms::input type="number" name="order_column" id="menu_order"
+                                    value="{{ old('order_column', optional($menu)->order_column) }}" />
+                                <x-cms::auth-validation-errors :error="__('order_column')" />
                             </div>
 
                             <div class="form-group">

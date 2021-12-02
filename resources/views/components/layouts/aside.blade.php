@@ -1,8 +1,15 @@
+@php
+    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first();
+@endphp
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('posts.index') }}" class="brand-link">
-        <img alt="{{ config('app.name') }}" height="60" width="60" class="img-circle"
-            src="{{ 'https://ui-avatars.com/api/?background=random&name='.config('app.name') }}" />
-        <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+        @if($siteLogo && $siteLogo->logo)
+            <img alt="site_logo" height="60" width="60" class="img-circle"
+                src="{{ $siteLogo->profile_img }}" />
+        @else
+            <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+        @endif
     </a>
     <!-- Sidebar -->
     <div class="sidebar">

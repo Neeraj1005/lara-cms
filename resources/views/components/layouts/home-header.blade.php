@@ -1,15 +1,16 @@
 @php
-    $menus = Neeraj1005\Cms\Models\CmsMenu::latest()->take(10)->get();
+    $menus = Neeraj1005\Cms\Models\CmsMenu::orderBy('order_column')->take(10)->get();
     $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first();
 @endphp
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ config('app.url') }}">
+        <a class="navbar-brand" href="site_logo">
             @if($siteLogo && $siteLogo->logo)
-                <img src="{{ $siteLogo->profile_img }}" width="30" height="30"
-                    class="d-inline-block align-top" alt="">
+                <img src="{{ $siteLogo->profile_img }}" width="30" height="30" class="d-inline-block align-top"
+                    alt="">
+            @else
+                {{ config('app.name') }}
             @endif
-            {{ config('app.name') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
             aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">

@@ -20,6 +20,7 @@
                             <x-slot name="tableHeading">
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Url') }}</th>
+                                <th>{{ __('Menu Order') }}</th>
                                 <th>{{ __('Action') }}</th>
                             </x-slot>
                             @forelse($menus as $menu)
@@ -27,6 +28,8 @@
                                     <td>{{ $menu->name }}</td>
 
                                     <td>{{ $menu->url }}</td>
+
+                                    <td>{{ optional($menu)->order_column }}</td>
 
                                     <td>
                                         <x-cms::table-action-btn>

@@ -15,14 +15,14 @@
                             <div class="form-group">
                                 <x-cms::label for="name" :value="__('Name')" />
                                 <x-cms::input type="text" name="name" id="name"
-                                    value="{{ old('name') }}" />
+                                    value="{{ old('name') }}" required />
                                 <x-cms::auth-validation-errors :error="__('name')" />
                             </div>
 
                             <div class="form-group">
                                 <x-cms::label for="url" :value="__('Url')" />
                                 <x-cms::input type="text" name="url" id="url"
-                                    value="{{ old('url') }}" />
+                                    value="{{ old('url') }}" required />
                                 <small class="text-muted">{{ __('for example https://laravel.com') }}</small>
                                 <x-cms::auth-validation-errors :error="__('url')" />
                             </div>

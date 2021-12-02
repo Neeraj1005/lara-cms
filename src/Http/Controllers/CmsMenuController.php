@@ -34,7 +34,7 @@ class CmsMenuController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:10'],
+            'name' => ['required', 'string', 'max:20'],
             'url' => ['required', 'url'],
         ]);
 
@@ -83,8 +83,9 @@ class CmsMenuController extends Controller
     public function update(Request $request, CmsMenu $menu)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:10'],
+            'name' => ['required', 'string', 'max:20'],
             'url' => ['required', 'url'],
+            'order_column' => ['required', 'digits_between:1,2'],
         ]);
 
         try {
