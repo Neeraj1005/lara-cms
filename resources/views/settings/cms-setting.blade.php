@@ -27,6 +27,14 @@
                                         aria-selected="true"><i class="fas fa-image"></i>
                                         {{ __('Logo') }}
                                     </a>
+
+                                    <a class="list-group-item list-group-item-action" id="v-pills-general-api"
+                                        data-toggle="pill" href="#v-pills-api" role="tab" aria-controls="v-pills-api"
+                                        aria-selected="true"><i class="fas fa-image"></i>
+                                        {{ __('Api') }}
+                                    </a>
+
+
                                 </div>
                             </div>
                         </div>
@@ -44,6 +52,11 @@
                             <div class="tab-pane fade" id="v-pills-logo" role="tabpanel"
                                 aria-labelledby="v-pills-home-logo">
                                 <x-cms::settings.seo-settings :data="$seo" :logo="true" />
+                            </div>
+
+                            <div class="tab-pane fade" id="v-pills-api" role="tabpanel"
+                                aria-labelledby="v-pills-general-api">
+                                <x-cms::settings.api-lists />
                             </div>
                         </div>
                     </div>

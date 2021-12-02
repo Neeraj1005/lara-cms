@@ -12,7 +12,12 @@
     <title>{{ $title ?? (optional($seo)->meta_title ?? config('cms.name')) }}
     </title>
 
-    <meta name="title"
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;70
+
+    <meta name=" title"
         content="{{ $title ?? (optional($seo)->meta_title ?? config('cms.name')) }}" />
     <meta name="description"
         content="{{ $description ?? (optional($seo)->meta_description ?? config('cms.description')) }}" />
@@ -35,17 +40,13 @@
         content="{{ $description ?? (optional($seo)->meta_description ?? config('cms.description')) }}" />
     <meta property="og:image" content="{{ $imageUrl ?? optional($seo)->profile_img }}" />
 
-
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
     @include('cms::includes.style')
 </head>
 
 <body class="hold-transition">
-    
+
     <x-cms::layouts.home-header />
-    
+
     <main id="app">
         {{ $slot }}
     </main>
