@@ -4,7 +4,7 @@
 @endphp
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="site_logo">
+        <a class="navbar-brand" href="{{ route('home.cms') }}">
             @if($siteLogo && $siteLogo->logo)
                 <img src="{{ $siteLogo->profile_img }}" width="30" height="30" class="d-inline-block align-top"
                     alt="">
