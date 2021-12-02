@@ -5,8 +5,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('posts.index') }}" class="brand-link">
         @if($siteLogo && $siteLogo->logo)
-            <img alt="site_logo" height="60" width="60" class="img-circle"
-                src="{{ $siteLogo->profile_img }}" />
+            <img alt="site_logo" class="img-fluid"
+                src="{{ $siteLogo->profile_img }}"
+                srcset="{{ $siteLogo->profile_img }} 800w" />
         @else
             <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
         @endif

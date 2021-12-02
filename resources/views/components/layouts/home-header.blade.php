@@ -6,8 +6,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('home.cms') }}">
             @if($siteLogo && $siteLogo->logo)
-                <img src="{{ $siteLogo->profile_img }}" width="30" height="30" class="d-inline-block align-top"
-                    alt="">
+                <img src="{{ $siteLogo->profile_img }}" 
+                    class="d-inline-block align-top img-fluid"
+                    srcset="{{ $siteLogo->profile_img }} 1200w,
+                    {{ $siteLogo->profile_img }} 800w,
+                    {{ $siteLogo->profile_img }} 600w"
+                    alt="site_logo">
             @else
                 {{ config('app.name') }}
             @endif
@@ -19,8 +23,8 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
                 @forelse($menus as $menu)
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ $menu->url }}"
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ $menu->url }}"
                             {{ $menu->is_checked == 1 ? "target=_blank rel=noreferrer" : '' }}>{{ $menu->name }}</a>
                     </li>
                 @empty
