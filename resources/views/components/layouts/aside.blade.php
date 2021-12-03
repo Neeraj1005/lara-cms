@@ -62,6 +62,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('cms.media.index') }}"
+                        class="nav-link {{ request()->routeIs('cms.media*') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon" style="font-size:15px;"></i>
+                        <p>{{ __('Media') }}</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('cms.settings') }}"
                         class="nav-link {{ request()->routeIs('cms.settings*') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon" style="font-size:15px;"></i>

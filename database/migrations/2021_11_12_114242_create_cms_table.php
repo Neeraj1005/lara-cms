@@ -77,6 +77,13 @@ class CreateCmsTable extends Migration
             $table->nullableTimestamps();
         });
 
+        // for mediaFileManager
+        Schema::create('media_form_submissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('cms_seos', function (Blueprint $table) {
             $table->id();
             $table->string('site_title')->nullable();
@@ -96,6 +103,7 @@ class CreateCmsTable extends Migration
             $table->boolean('is_checked')->default(false)->comment('is used for target blank');
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -110,6 +118,7 @@ class CreateCmsTable extends Migration
         Schema::dropIfExists('cms_categories');
         Schema::dropIfExists('cms_tags');
         Schema::dropIfExists('media');
+        Schema::dropIfExists('media_form_submissions');
         Schema::dropIfExists('cms_seos');
         Schema::dropIfExists('cms_menus');
     }

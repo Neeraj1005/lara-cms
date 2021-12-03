@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Neeraj1005\Cms\Http\Controllers\Api\CmsPostApiController;
 use Neeraj1005\Cms\Http\Controllers\CmsCategoryController;
 use Neeraj1005\Cms\Http\Controllers\CmsHomeController;
+use Neeraj1005\Cms\Http\Controllers\CmsMediaController;
 use Neeraj1005\Cms\Http\Controllers\CmsMenuController;
 use Neeraj1005\Cms\Http\Controllers\CmsReportController;
 use Neeraj1005\Cms\Http\Controllers\CmsSeoController;
@@ -34,7 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('settings', CmsSettingController::class)->name('settings');
         Route::post('seo-cms', [CmsSeoController::class, 'seoStore'])->name('seo');
         Route::resource('menus', CmsMenuController::class)->except(['show']);
+        Route::resource('media', CmsMediaController::class);
     });
+
 });
 
 Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');
