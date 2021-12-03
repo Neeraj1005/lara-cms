@@ -15,17 +15,20 @@ class MediaFormSubmission extends Model implements HasMedia
     protected $guarded = [];
 
     const MEDIA_COLLECTION_NAME = 'media_manager';
+    const MEDIA_CONVERSION_NAME = 'media_thumb';
 
     public function registerMediaConversions(Media $media = null): void
     {
-        // $this
-        //     ->addMediaConversion('preview')
-        //     ->fit(Manipulations::FIT_CROP, 300, 300)
-        //     ->acceptsMimeTypes(['image/jpeg/png/'])
-        //     ->nonQueued();
-
         $this
-            ->addMediaCollection(self::MEDIA_COLLECTION_NAME)
-            ->acceptsMimeTypes(['image/jpeg/png/']);
+            ->addMediaConversion(self::MEDIA_CONVERSION_NAME)
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection(self::MEDIA_COLLECTION_NAME);
+        // ->acceptsMimeTypes(['image/jpeg/png/']);
     }
 }

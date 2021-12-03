@@ -28,14 +28,14 @@ class CmsMediaController extends Controller
         ]);
 
         try {
-            DB::transaction(function () use ($validatedData, $request) {
+            DB::transaction(function () use ($request) {
                 $mediaFormSubmission = MediaFormSubmission::create([
                     'name' => $request->name ?? 'filemanager',
                 ]);
 
                 $mediaFormSubmission->addMedia($request->media)
                     ->withResponsiveImages()
-                    ->toMediaCollection();
+                    ->toMediaCollection(MediaFormSubmission::MEDIA_COLLECTION_NAME);
             });
             return redirect()->route('cms.media.index')->with('message', 'media uploaded successfully');
         } catch (\Throwable $th) {
