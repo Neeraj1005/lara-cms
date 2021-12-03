@@ -36,7 +36,7 @@
                 </div>
                 @if($post->picture)
                     <div class="embed-responsive">
-                        <img src="{{ asset($post->profileImage()) }}" class="img-fluid" />
+                        <img src="{{ asset($post->profileImage()) }}" class="img-fluid" alt="{{ optional($post)->slug }}" />
                     </div>
                 @endif
                 <p>
@@ -60,4 +60,7 @@
             {{-- End Tag list --}}
         </div>
     </div>
+    @push('script')
+        @include('cms::includes.media-embed-ckeditor')
+    @endpush
 </x-cms::layouts.home-layout>

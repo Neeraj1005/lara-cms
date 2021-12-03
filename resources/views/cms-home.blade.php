@@ -5,14 +5,15 @@
                 @forelse($posts as $post)
                     <div class="post">
                         <h1 class="post-title fw-500">
-                            <a href="{{ route('home.cms.show', $post->slug) }}" class="text-reset">
+                            <a href="{{ route('home.cms.show', $post->slug) }}"
+                                class="text-reset">
                                 {{ $post->stringLimit($post->title) ?? '' }}
                             </a>
                         </h1>
                         <div class="d-flex align-items-center mb-4 text-muted author-info">
 
                             @if($post->user)
-                                <span class="d-flex align-items-center text-muted text-decoration-none mr-2">
+                                <span class="d-flex align-items-center text-muted text-decoration-none mr-2 font-bold">
                                     <span>{{ $post->user ? '@'.$post->user->name : '' }}</span>
                                 </span>
                             @endif
@@ -30,7 +31,7 @@
                         </div>
                         @if($post->picture)
                             <div class="embed-responsive">
-                                <img src="{{ asset($post->profileImage()) }}" class="img-fluid" />
+                                <img src="{{ asset($post->profileImage()) }}" class="img-fluid" alt="{{ optional($post)->slug }}" />
                             </div>
                         @endif
                         <p>
@@ -43,4 +44,7 @@
             </div>
         </div>
     </div>
+    {{-- @push('script')
+        @include('cms::includes.media-embed-ckeditor')
+    @endpush --}}
 </x-cms::layouts.home-layout>
