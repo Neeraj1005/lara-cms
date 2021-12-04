@@ -1,12 +1,12 @@
 @php
     $menus = Neeraj1005\Cms\Models\CmsMenu::orderBy('order_column')->take(10)->get();
-    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first()->getFirstMedia('seo_manager');
+    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first();
 @endphp
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('home.cms') }}">
-            @if($siteLogo)
-                {{ $siteLogo }}
+            @if($siteLogo $siteLogo->logo)
+                {{ $siteLogo->getFirstMedia('seo_manager') }}
             @else
                 {{ config('app.name') }}
             @endif
