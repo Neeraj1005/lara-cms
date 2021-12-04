@@ -4,7 +4,7 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('posts.index') }}" class="brand-link">
-        @if($siteLogo $siteLogo->logo)
+        @if($siteLogo && $siteLogo->logo)
             {{ $siteLogo->getFirstMedia('seo_manager') }}
         @else
             <span class="brand-text font-weight-light">{{ config('app.name') }}</span>

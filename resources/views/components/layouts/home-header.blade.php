@@ -5,7 +5,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('home.cms') }}">
-            @if($siteLogo $siteLogo->logo)
+            @if($siteLogo && $siteLogo->logo)
                 {{ $siteLogo->getFirstMedia('seo_manager') }}
             @else
                 {{ config('app.name') }}
