@@ -3,9 +3,15 @@
 namespace Neeraj1005\Cms\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class CmsSeo extends Model
+class CmsSeo extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     //Table Name
     protected $table = 'cms_seos';
 
@@ -19,8 +25,25 @@ class CmsSeo extends Model
     ];
 
     const ROW_ID = 1;
+    const MEDIA_COLLECTION_NAME = 'seo_manager';
+    const MEDIA_CONVERSION_NAME = 'seo_thum';
 
     protected $appends = ['profile_img', 'meta_title', 'meta_description'];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion(self::MEDIA_CONVERSION_NAME)
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection(self::MEDIA_COLLECTION_NAME);
+            // ->acceptsMimeTypes(['image/jpeg/png/']);
+    }
 
     public function getProfileImgAttribute()
     {

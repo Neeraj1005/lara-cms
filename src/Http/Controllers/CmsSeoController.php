@@ -22,7 +22,13 @@ class CmsSeoController extends Controller
                 $validatedData['logo'] = $path_url;
             }
 
-            CmsSeo::updateOrCreate(['id' => CmsSeo::ROW_ID], $validatedData);
+            $cmsSeo = CmsSeo::updateOrCreate(['id' => CmsSeo::ROW_ID], $validatedData);
+
+            if ($request->hasFile('picture')) {
+                $cmsSeo->addMedia($request->picture)
+                    ->withResponsiveImages()
+                    ->toMediaCollection(CmsSeo::MEDIA_COLLECTION_NAME);
+            }
 
             return redirect()->route('cms.settings')->with('message', 'data added successfully');
         } catch (\Throwable $th) {
