@@ -1,17 +1,12 @@
 @php
     $menus = Neeraj1005\Cms\Models\CmsMenu::orderBy('order_column')->take(10)->get();
-    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first();
+    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first()->getFirstMedia('seo_manager');
 @endphp
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('home.cms') }}">
-            @if($siteLogo && $siteLogo->logo)
-                <img src="{{ $siteLogo->profile_img }}" 
-                    class="d-inline-block align-top img-fluid"
-                    srcset="{{ $siteLogo->profile_img }} 1200w,
-                    {{ $siteLogo->profile_img }} 800w,
-                    {{ $siteLogo->profile_img }} 600w"
-                    alt="site_logo">
+            @if($siteLogo)
+                {{ $siteLogo }}
             @else
                 {{ config('app.name') }}
             @endif

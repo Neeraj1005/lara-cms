@@ -1,13 +1,11 @@
 @php
-    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first();
+    $siteLogo = Neeraj1005\Cms\Models\CmsSeo::first()->getFirstMedia('seo_manager');
 @endphp
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('posts.index') }}" class="brand-link">
-        @if($siteLogo && $siteLogo->logo)
-            <img alt="site_logo" class="img-fluid"
-                src="{{ $siteLogo->profile_img }}"
-                srcset="{{ $siteLogo->profile_img }} 800w" />
+        @if($siteLogo)
+            {{ $siteLogo }}
         @else
             <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
         @endif
@@ -52,7 +50,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <li class="nav-item">
                     <a href="{{ route('cms.menus.index') }}"
                         class="nav-link {{ request()->routeIs('cms.menus*') ? 'active' : '' }}">
@@ -76,7 +74,7 @@
                         <p>{{ __('Settings') }}</p>
                     </a>
                 </li>
-                
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

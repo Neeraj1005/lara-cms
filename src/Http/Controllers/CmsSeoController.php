@@ -25,6 +25,12 @@ class CmsSeoController extends Controller
             $cmsSeo = CmsSeo::updateOrCreate(['id' => CmsSeo::ROW_ID], $validatedData);
 
             if ($request->hasFile('picture')) {
+                
+                // if media has already a logo then delete previous one and upload new one
+                if ($cmsSeo->getFirstMedia(CmsSeo::MEDIA_COLLECTION_NAME)) {
+                    $cmsSeo->clearMediaCollection(CmsSeo::MEDIA_COLLECTION_NAME);
+                }
+
                 $cmsSeo->addMedia($request->picture)
                     ->withResponsiveImages()
                     ->toMediaCollection(CmsSeo::MEDIA_COLLECTION_NAME);
