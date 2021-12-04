@@ -29,11 +29,18 @@
                                 {{ $post->created_at->isoFormat('dddd DD, YYYY') ?? '' }}
                             </span>
                         </div>
-                        @if($post->picture)
+
+                        {{-- @if($post->picture)
                             <div class="embed-responsive">
                                 <img src="{{ asset($post->profileImage()) }}" class="img-fluid" alt="{{ optional($post)->slug }}" />
                             </div>
+                        @endif --}}
+                        @if($post->getFirstMedia('post_featured_image'))
+                            <div class="embed-responsive">
+                                {{ optional($post)->getFirstMedia('post_featured_image') }}
+                            </div>
                         @endif
+                        
                         <p>
                             {!! $post->stringLimit($post->body, 350) ?? '' !!}
                         </p>

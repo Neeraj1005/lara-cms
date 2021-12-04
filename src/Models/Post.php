@@ -36,16 +36,27 @@ class Post extends Model implements HasMedia
     ];
 
     const POST_PAGINATE = 10;
+
     const TYPE_PUBLISHED = 'published';
     const TYPE_DRAFT = 'draft';
     const TYPE_TRASH = 'trashed';
 
+    // for media lib
+    const MEDIA_COLLECTION_NAME = 'post_featured_image';
+    const MEDIA_CONVERSION_NAME = 'post_thumb';
+    
     protected $appends = ['profile_img'];
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('ckthumb')
               ->width(600);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection(self::MEDIA_COLLECTION_NAME);
     }
 
     public function getProfileImgAttribute()

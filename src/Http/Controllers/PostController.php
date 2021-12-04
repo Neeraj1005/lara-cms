@@ -88,6 +88,16 @@ class PostController extends Controller
                         $post->cms_tags()->attach($tag);
                     }
                 }
+
+                if ($request->hasFile('picture')) {
+                    // if media has already a logo then delete previous one and upload new one
+                    if ($post->getFirstMedia(Post::MEDIA_COLLECTION_NAME)) {
+                        $post->clearMediaCollection(Post::MEDIA_COLLECTION_NAME);
+                    }
+                    $post->addMedia($request->picture)
+                        ->withResponsiveImages()
+                        ->toMediaCollection(Post::MEDIA_COLLECTION_NAME);
+                }
             });
 
             return redirect()->route('posts.index', ['type' => request('postType')])->with('status', 'post created successfully');
