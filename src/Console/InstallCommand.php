@@ -46,14 +46,15 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'lara-cms-config']);
 
         // Run migrations
-        $this->callSilent('migrate', [
-            '--path' => 'vendor/neeraj1005/cms/database/migrations',
-        ]);
+        // $this->callSilent('migrate', [
+        //     '--path' => 'vendor/neeraj1005/cms/database/migrations',
+        // ]);
 
         // Install bootstrap assest css/js
         Bootstrap::install();
 
         $this->info('Installation complete.');
+        $this->comment('Webpack added.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
 }
