@@ -44,13 +44,17 @@ class Post extends Model implements HasMedia
     // for media lib
     const MEDIA_COLLECTION_NAME = 'post_featured_image';
     const MEDIA_CONVERSION_NAME = 'post_thumb';
+    const MEDIA_CK_CONVERSION_NAME = 'ckthumb';
+    const MEDIA_CK_COLLECTION_NAME = 'postckimages';
     
     protected $appends = ['profile_img'];
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('ckthumb')
-              ->width(600);
+        $this->addMediaConversion(self::MEDIA_CK_CONVERSION_NAME)
+              ->width(150)
+              ->height(150)
+              ->nonQueued();
     }
 
     public function registerMediaCollections(): void

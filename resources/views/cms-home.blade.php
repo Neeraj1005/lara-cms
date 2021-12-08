@@ -35,9 +35,9 @@
                                 <img src="{{ asset($post->profileImage()) }}" class="img-fluid" alt="{{ optional($post)->slug }}" />
                             </div>
                         @endif --}}
-                        @if($post->getFirstMedia('post_featured_image'))
+                        @if($post->getFirstMedia(Neeraj1005\Cms\Models\Post::MEDIA_COLLECTION_NAME))
                             <div class="embed-responsive">
-                                {{ optional($post)->getFirstMedia('post_featured_image') }}
+                                {{ optional($post)->getFirstMedia(Neeraj1005\Cms\Models\Post::MEDIA_COLLECTION_NAME) }}
                             </div>
                         @endif
                         

@@ -34,9 +34,15 @@
                         {{ $post->created_at->isoFormat('dddd DD, YYYY') }}
                     </span>
                 </div>
-                @if($post->picture)
+                {{-- @if($post->picture)
                     <div class="embed-responsive">
-                        <img src="{{ asset($post->profileImage()) }}" class="img-fluid" alt="{{ optional($post)->slug }}" />
+                        <img src="{{ asset($post->profileImage()) }}" class="img-fluid"
+                            alt="{{ optional($post)->slug }}" />
+                    </div>
+                @endif --}}
+                @if($post->getFirstMedia(Neeraj1005\Cms\Models\Post::MEDIA_COLLECTION_NAME))
+                    <div class="embed-responsive">
+                        {{ optional($post)->getFirstMedia(Neeraj1005\Cms\Models\Post::MEDIA_COLLECTION_NAME) }}
                     </div>
                 @endif
                 <p>
