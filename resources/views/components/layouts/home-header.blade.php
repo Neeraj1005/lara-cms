@@ -4,7 +4,7 @@
 @endphp
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ donfig('cms.frontend_url') ? route('home.cms') : config('app.url') }}">
+        <a class="navbar-brand" href="{{ config('cms.frontend_url') ? route('home.cms') : config('app.url') }}">
             @if($siteLogo && $siteLogo->logo)
                 {{ $siteLogo->getFirstMedia('seo_manager') }}
             @else
