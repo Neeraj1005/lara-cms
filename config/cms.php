@@ -94,5 +94,5 @@ return [
      * Need front-end url
      */
 
-    'frontend_url' => false, // true or false
+    'frontend_url' => true, // true or false
 ];
