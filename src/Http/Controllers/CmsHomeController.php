@@ -7,33 +7,22 @@ use Illuminate\Http\Response;
 use Neeraj1005\Cms\Models\Post;
 use Illuminate\Routing\Controller;
 use Neeraj1005\Cms\Models\CmsCategory;
+use Neeraj1005\Cms\Http\Library\CmsPostLibrary;
 
 class CmsHomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::query()
-        ->with('user:id,name')
-        ->when(request('category'), function($query) {
-            return $query->whereHas('cms_category', function($query){
-                $query->where('slug', request('category'));
-            });
-        })
-        ->when(request('tag'), function($query) {
-            return $query->whereHas('cms_tags', function($query){
-                $query->where('slug', request('tag'));
-            });
-        })
-        ->isPublished()
-        ->withCount('cms_category')
-        ->latest()->paginate(config('cms.paginated_data'));
+        $postLib = new CmsPostLibrary;
+
+        $posts = $postLib->postLists();
 
         return view('cms::cms-home', compact('posts'));
     }
 
     public function show(Post $post)
     {
-        $post = $post->with('cms_category', 'cms_tags', 'user:id,name')
+        $post = $post->with('media', 'cms_category', 'cms_tags', 'user:id,name')
             ->withCount('cms_tags','cms_category')
             ->isPublished()
             ->findOrFail($post->id);

@@ -49,6 +49,8 @@
 
                 @endforelse
             </div>
+
+            {{ $posts->links() }}
         </div>
     </div>
     {{-- @push('script')

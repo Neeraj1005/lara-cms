@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Neeraj1005\Cms\Models\Post;
 use Illuminate\Routing\Controller;
+use Neeraj1005\Cms\Http\Library\CmsPostLibrary;
 
 class CmsPostApiController extends Controller
 {
@@ -14,23 +15,30 @@ class CmsPostApiController extends Controller
         $request->validate([
             'limit' => ['nullable', 'integer'],
         ]);
+        try {
+            $postLib = new CmsPostLibrary;
 
-        $posts = Post::query();
-
-        if ($request->limit) {
-            $posts = Post::with('cms_category:id,name,slug', 'user:id,name')->isPublished()->latest()->take($request->limit)->get();
-        } else {
-            $posts = Post::with('cms_category:id,name,slug')->isPublished()->latest()->paginate(Post::POST_PAGINATE);
+            if ($request->limit) {
+                $posts = $postLib->postLists($request->limit);
+            } else {
+                $posts = $postLib->postLists();
+            }
+            return response()->json([
+                'posts' => $posts,
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'something went wrong. ' . $th->getMessage(),
+            ], Response::HTTP_NOT_FOUND);
         }
-
-        return response()->json([
-            'posts' => $posts,
-        ], Response::HTTP_OK);
     }
 
     public function show(Post $post)
     {
-        $posts = $post->with('cms_category:id,name,slug', 'user:id,name')->isPublished()->findOrFail($post->id);
+        $posts = $post->with('media', 'cms_category:id,name,slug', 'cms_tags', 'user:id,name')
+            ->withCount('cms_tags', 'cms_category')
+            ->isPublished()
+            ->findOrFail($post->id);
 
         return response()->json([
             'posts' => $posts,
