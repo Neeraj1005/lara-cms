@@ -7,10 +7,12 @@
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('home.cms') }}"
-                class="nav-link" target="_blank" rel="noopener noreferrer">{{ __('Visit Site') }}</a>
-        </li>
+        @if(config('cms.frontend_url'))
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('home.cms') }}" class="nav-link" target="_blank"
+                    rel="noopener noreferrer">{{ __('Visit Site') }}</a>
+            </li>
+        @endif
     </ul>
     <ul class="navbar-nav ml-auto">
         <!-- profile Dropdown Menu -->

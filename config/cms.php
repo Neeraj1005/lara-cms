@@ -89,4 +89,10 @@ return [
     'twitter_profile' => env('CMS_TWITTER_PROFILE_NAME', '@cms'),
     'twitter_site' => env('CMS_TWITTER_SITE_NAME', '@cms.com'),
     'description' => env('CMS_TWITTER_SITE_NAME', 'laracms package for adding post'),
+
+    /**
+     * Need front-end url
+     */
+
+    'frontend_url' => false, // true or false
 ];

@@ -45,7 +45,7 @@
                                             <img src="{{ asset($post->profileImage()) }}" width="5%"
                                                 alt="{{ $post->slug }}">
                                         @endif
-                                        <a href="{{ route('home.cms.show', $post->slug) }}"
+                                        <a href="{{ config('cms.frontend_url') ? route('home.cms.show', $post->slug) : '#' }}"
                                             target="_blank" rel="noopener">{{ $post->title }}</a>
                                     </td>
                                     <td>

@@ -19,10 +19,16 @@ Route::prefix('api')->group(function () {
     });
 });
 
-Route::get('/', [CmsHomeController::class, 'index'])->name('home.cms');
+if (config('cms.frontend_url')) {
+    Route::get('/', [CmsHomeController::class, 'index'])->name('home.cms');
+}
+
 Route::get('/rss', [CmsHomeController::class, 'rssFeed'])->name('home.rss');
 Route::get('/sitemap', [CmsHomeController::class, 'sitemap'])->name('sitemap');
 
+/**
+ * Backend Url
+ */
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('posts', PostController::class);
     Route::name('posts.')->group(function () {
@@ -37,7 +43,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('menus', CmsMenuController::class)->except(['show']);
         Route::resource('media', CmsMediaController::class);
     });
-
 });
 
-Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');
+if (config('cms.frontend_url')) {
+    Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');
+}

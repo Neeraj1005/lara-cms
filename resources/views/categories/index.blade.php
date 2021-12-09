@@ -22,7 +22,7 @@
                         <tr>
                             <td>
                                 <a
-                                    href="{{ route('home.cms', ['category' => $category->slug]) }}"
+                                    href="{{ config('cms.frontend_url') ? route('home.cms', ['category' => $category->slug]) : '#' }}"
                                     target="_new"
                                     rel="noopener noreferrer">
                                     {{ $category->name }}
