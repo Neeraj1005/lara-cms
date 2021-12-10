@@ -14,3 +14,47 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+.media img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+a.navbar-brand img {
+    height: auto;
+    width: 175px;
+    object-fit: contain;
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: calc(0.25rem - 1px);
+    height: auto;
+}
+
+.card-img-overlay {
+    bottom: auto !important;
+}
+
+.card-custom {
+    height: 395px;
+}
+
+/* Media Query */
+figure img {
+    width: 750px !important;
+    height: auto !important;
+}
+
+@media screen and (max-width: 600px) {
+    figure img {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .card-custom {
+        height: 450px;
+    }
+}
