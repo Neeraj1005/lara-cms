@@ -108,16 +108,30 @@ class Post extends Model implements HasMedia
         return $this->onlyTrashed();
     }
 
+    /**
+     * accessor for description field
+     *
+     * @return string
+     */
     public function getSummaryOfBodyAttribute()
     {
-        if ($this->body) {
-            $body =  Str::limit(strip_tags($this->body), 156, '...');
-            return $body;
-        } else {
-            return null;
-        }
+        return $this->body ? Str::limit(strip_tags($this->body), 156, '...') : null;
     }
 
+    /**
+     * accessor for title
+     *
+     * @return string
+     */
+    public function getPostTitleAttribute()
+    {
+        return $this->title ? Str::limit($this->title, 20, '...') : null;
+    }
+
+    public function getFakeImageAttribute()
+    {
+        return $this->picture ? '' : 'https://ui-avatars.com/api/?background=random&name=' . urlencode($this->title);
+    }
 
     // relation function below
 

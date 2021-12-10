@@ -66,7 +66,7 @@ class Bootstrap extends Preset
         (new Filesystem)->ensureDirectoryExists(resource_path('sass'));
         copy(__DIR__ . '/bootstrap-stubs/_variables.scss', resource_path('sass/_variables.scss'));
         copy(__DIR__ . '/bootstrap-stubs/cms_app.scss', resource_path('sass/cms_app.scss'));
-        copy(__DIR__ . '/bootstrap-stubs/cms_fontawesome.scss', resource_path('sass/cms_fontawesome.scss'));
+        copy(__DIR__ . '/bootstrap-stubs/frontend/cms_frontend_app.scss', resource_path('sass/cms_frontend_app.scss'));
     }
 
     /**
@@ -77,6 +77,7 @@ class Bootstrap extends Preset
     protected static function updateBootstrapping()
     {
         copy(__DIR__ . '/bootstrap-stubs/cms_bootstrap.js', resource_path('js/cms_bootstrap.js'));
+        copy(__DIR__ . '/bootstrap-stubs/frontend/cms_frontend_app.js', resource_path('js/cms_frontend_app.js'));
         copy(__DIR__ . '/bootstrap-stubs/ckeditor5.js', resource_path('js/ckeditor5.js'));
     }
 }

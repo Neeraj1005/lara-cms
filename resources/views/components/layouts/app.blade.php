@@ -11,7 +11,7 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    @include('cms::includes.style')
+    @include('cms::includes.backend.style')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -25,7 +25,7 @@
             {{ $slot }}
         </main>
     </div>
-    @include('cms::includes.script')
+    @include('cms::includes.backend.script')
 </body>
 
 </html>

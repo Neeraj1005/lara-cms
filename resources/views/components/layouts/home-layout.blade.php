@@ -12,11 +12,6 @@
     <title>{{ $title ?? (optional($seo)->meta_title ?? config('cms.name')) }}
     </title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;70
-
     <meta name=" title"
         content="{{ $title ?? (optional($seo)->meta_title ?? config('cms.name')) }}" />
     <meta name="description"
@@ -40,7 +35,7 @@
         content="{{ $description ?? (optional($seo)->meta_description ?? config('cms.description')) }}" />
     <meta property="og:image" content="{{ $imageUrl ?? optional($seo)->profile_img }}" />
 
-    @include('cms::includes.style')
+    @include('cms::includes.frontend.style')
 </head>
 
 <body class="hold-transition">
@@ -52,7 +47,7 @@
     </main>
 
     <x-cms::layouts.footer />
-    @include('cms::includes.script')
+    @include('cms::includes.frontend.script')
 </body>
 
 </html>
