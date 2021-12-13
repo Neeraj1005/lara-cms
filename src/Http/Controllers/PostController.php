@@ -242,15 +242,40 @@ class PostController extends Controller
 
     public function imageUpload(Request $request)
     {
-        $post = new Post();
-        $post->id = 0;
-        $post->exists = true;
-        $image = $post->addMediaFromRequest('upload')
-            ->withResponsiveImages()
-            ->toMediaCollection(Post::MEDIA_CK_COLLECTION_NAME);
-
-        return response()->json([
-            'url' => $image->getUrl(Post::MEDIA_CK_CONVERSION_NAME),
+        $request->validate([
+            'upload' => ['nullable', 'image']
         ]);
+        /**
+         * for ckeditor 5 
+         */
+        // $post = new Post();
+        // $post->id = 0;
+        // $post->exists = true;
+        // $image = $post->addMediaFromRequest('upload')
+        //     ->withResponsiveImages()
+        //     ->toMediaCollection(Post::MEDIA_CK_COLLECTION_NAME);
+
+        // return response()->json([
+        //     'url' => $image->getUrl(Post::MEDIA_CK_CONVERSION_NAME),
+        // ]);
+
+        /**
+         * ckeditor4 ckfinder
+         */
+        if ($request->hasFile('upload')) {
+            $post = new Post();
+            $post->id = 0;
+            $post->exists = true;
+            $image = $post->addMediaFromRequest('upload')
+                ->withResponsiveImages()
+                ->toMediaCollection(Post::MEDIA_CK_COLLECTION_NAME);
+            $url = $image->getUrl(Post::MEDIA_CK_CONVERSION_NAME);
+
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($request->CKEditorFuncNum, '$url', 'image uploaded successfully')</script>";
+
+            @header('Content-type: text/html; charset-utf-8');
+
+            return $response;
+        }
     }
 }
