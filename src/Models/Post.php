@@ -90,7 +90,7 @@ class Post extends Model implements HasMedia
 
     public function stringLimit(string $val, int $len = 128)
     {
-        return $val ? Str::limit($val, $len, '...') : null;
+        return $val ? Str::limit(strip_tags($val), $len, '...') : null;
     }
 
     public function ScopeIsPublished($query)
