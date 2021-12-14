@@ -52,7 +52,7 @@ class Post extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion(self::MEDIA_CK_CONVERSION_NAME)
-              ->width(750)
+              ->width(300)
               ->nonQueued();
     }
 
