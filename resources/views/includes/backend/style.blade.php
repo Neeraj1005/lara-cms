@@ -16,7 +16,7 @@
         padding: 0.5125rem 0.5rem;
     }
 
-    a .brand-link img {
+    a.brand-link img {
         width: 150px;
         height: 36px;
         object-fit: contain;
