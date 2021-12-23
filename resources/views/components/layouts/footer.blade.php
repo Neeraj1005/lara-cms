@@ -15,7 +15,7 @@
                 <div class="social-media-widget">
                     <a
                         href="{{ route('home.rss',['q' => 'latest-post']) }}" aria-label="latest post feed">
-                        <i class="fas fa-rss-square fa-2x"></i>
+                        <x-cms::svg.rss-svg />
                     </a>
                 </div>
             </div>

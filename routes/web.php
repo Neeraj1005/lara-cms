@@ -19,6 +19,9 @@ Route::prefix('api')->group(function () {
     });
 });
 
+/**
+ * frontend url
+ */
 if (config('cms.frontend_url')) {
     Route::get('/', [CmsHomeController::class, 'index'])->name('home.cms');
 }
@@ -45,6 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+/**
+ * frontend url
+ */
 if (config('cms.frontend_url')) {
     Route::get('/{post}', [CmsHomeController::class, 'show'])->name('home.cms.show');
 }
